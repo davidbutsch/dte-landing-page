@@ -1,7 +1,8 @@
 import {
-  COGNITO_ERROR_INVALID_VERIFICATION_CODE,
-  COGNITO_ERROR_USERNAME_EXISTS,
+  INVALID_VERIFICATION_CODE_ERROR,
+  USERNAME_EXISTS_ERROR,
 } from "@/common";
+import { openErrorDialog } from "@/components";
 import { storeUser } from "@/modules/auth/hooks";
 import {
   ConfirmationCodeSchema,
@@ -21,7 +22,6 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
 const Form = styled(Box)<React.ComponentProps<"form">>(({ theme }) => ({
   display: "flex",
@@ -64,17 +64,17 @@ export const SignUpForm = () => {
     onError: (error) => {
       switch (error.name) {
         // If the email is already in use, set email error message and jump back to the profile step
-        case COGNITO_ERROR_USERNAME_EXISTS:
+        case USERNAME_EXISTS_ERROR:
           setErrors((current) => ({
             ...current,
             email: "Email already registered",
           }));
           setActiveStep(0);
           break;
-
-        // If unrecognized error, display error toast
+        // If unrecognized error, display error dialog
         default:
-          toast.error(error.message);
+          console.error(error);
+          openErrorDialog({ text: error.message });
       }
     },
     onSuccess: () => {
@@ -85,17 +85,17 @@ export const SignUpForm = () => {
   const confirmSignUpUserMutation = useMutation({
     mutationFn: confirmSignUp,
     onError: (error) => {
-      console.log(error);
       switch (error.name) {
-        case COGNITO_ERROR_INVALID_VERIFICATION_CODE:
+        case INVALID_VERIFICATION_CODE_ERROR:
           setErrors((current) => ({
             ...current,
             code: "Invalid confirmation code",
           }));
           break;
-        // If unrecognized error, display error toast
+        // If unrecognized error, display error dialog
         default:
-          toast.error(error.message);
+          console.error(error);
+          openErrorDialog({ text: error.message });
       }
     },
     onSuccess: async () => {

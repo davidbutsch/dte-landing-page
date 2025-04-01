@@ -1,3 +1,5 @@
+import { USER_UNAUTHENTICATED_ERROR } from "@/common";
+import { openErrorDialog } from "@/components";
 import { User } from "@/modules/auth/types";
 import { fetchUserAttributes, getCurrentUser } from "@aws-amplify/auth";
 import { create } from "zustand";
@@ -11,7 +13,9 @@ type AuthStoreState = {
 export const useAuthStore = create<AuthStoreState>((set: any) => ({
   user: null,
   isUserLoading: true,
-  setUser: (user: User | null) => set({ user, isUserLoading: false }),
+  setUser: (user: User | null) => {
+    set({ user, isUserLoading: false });
+  },
 }));
 
 /**
@@ -27,9 +31,22 @@ export const storeUser = async (): Promise<void> => {
     const userAttributes = await fetchUserAttributes();
 
     const user = { ...userAuthDetails, attributes: userAttributes };
+
     useAuthStore.getState().setUser(user); // Store user if authenticated
   } catch (error) {
-    useAuthStore.getState().setUser(null); // Clear stored user if not authenticated
+    if (error instanceof Error)
+      switch (error.name) {
+        // Ignore unauthenticated user errors
+        case USER_UNAUTHENTICATED_ERROR:
+          break;
+
+        // If unrecognized error, display error dialog
+        default:
+          console.error(error);
+          openErrorDialog({ title: error.name, text: error.message });
+      }
+
+    useAuthStore.getState().setUser(null); // Clear stored user on error
   }
 };
 storeUser();

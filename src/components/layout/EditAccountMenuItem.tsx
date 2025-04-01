@@ -1,4 +1,5 @@
 import { keys } from "@/common";
+import { openErrorDialog } from "@/components/elements";
 import { storeUser, useAuthStore } from "@/modules/auth";
 import { updateUserAttributes } from "@aws-amplify/auth";
 import {
@@ -14,6 +15,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { z } from "zod";
 
@@ -48,6 +50,25 @@ export const EditAccountMenuItem = () => {
   const { user } = useAuthStore();
   if (!user) return;
 
+  // API
+  const updateUserAttributesMutation = useMutation({
+    mutationFn: updateUserAttributes,
+
+    onError: (error) => {
+      switch (error.name) {
+        // If unrecognized error display error dialog
+        default:
+          console.error(error);
+          openErrorDialog({ title: error.name, text: error.message });
+      }
+    },
+    // Updates client user state and closes dialog box.
+    onSuccess: () => {
+      storeUser(); // refetch and store user
+      handleDialogClose();
+    },
+  });
+
   // Persists initial data across renders
   const initialInputs = {
     givenName: user?.attributes.given_name,
@@ -80,7 +101,7 @@ export const EditAccountMenuItem = () => {
   };
 
   /**
-   * Checks for valid inputs, sends update query, updates client user state, and closes dialog box.
+   * Checks for valid inputs and sends update query.
    *
    * Triggered by the save button.
    */
@@ -88,22 +109,12 @@ export const EditAccountMenuItem = () => {
     const isInputsValid = validateInputs();
     if (!isInputsValid) return;
 
-    try {
-      await updateUserAttributes({
-        userAttributes: {
-          given_name: inputs.givenName,
-          family_name: inputs.familyName,
-        },
-      });
-
-      storeUser(); // refetch and store user
-    } catch (error) {
-      console.error(error);
-    }
-
-    // updateProfile(user, { displayName: inputs.displayName });
-    // setUser({ ...user, displayName: inputs.displayName });
-    handleDialogClose();
+    updateUserAttributesMutation.mutate({
+      userAttributes: {
+        given_name: inputs.givenName,
+        family_name: inputs.familyName,
+      },
+    });
   };
 
   /**
@@ -216,6 +227,7 @@ export const EditAccountMenuItem = () => {
             color="primary"
             onClick={handleSave}
             disabled={isSaveDisabled}
+            loading={updateUserAttributesMutation.isPending}
           >
             Save
           </Button>

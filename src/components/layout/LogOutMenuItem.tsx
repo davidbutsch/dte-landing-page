@@ -1,17 +1,27 @@
+import { openErrorDialog } from "@/components/elements";
+import { signOut } from "@aws-amplify/auth";
 import { ListItemIcon, MenuItem } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 export const LogOutMenuItem = () => {
-  const navigate = useNavigate();
+  // API
+  const signOutMutation = useMutation({
+    mutationFn: signOut,
+    onError: (error) => {
+      openErrorDialog({ text: error.message });
+    },
+    onSuccess: () => {
+      window.location.href = "/log-in";
+    },
+  });
 
   /**
    * Triggered by Logout MenuItem.
    *
-   * Signs user out and navigates to the log in page.
+   * Signs user out and route to the log in page.
    */
   const handleLogout = async () => {
-    // await signOut(auth); TODOOOOOO
-    // navigate("/log-in");
+    signOutMutation.mutate(undefined);
   };
 
   return (

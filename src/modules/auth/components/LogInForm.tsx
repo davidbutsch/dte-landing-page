@@ -6,10 +6,8 @@ import {
   styled,
   TextField,
 } from "@mui/material";
-import { toast } from "sonner";
 
-import { COGNITO_ERROR_INCORRECT_CREDENTIALS } from "@/common";
-// import { storeUser } from "@/modules/auth/hooks";
+import { INCORRECT_CREDENTIALS_ERROR } from "@/common";
 import { storeUser } from "@/modules/auth/hooks";
 import { CredentialsSchema } from "@/modules/auth/schemas";
 import { signIn } from "@aws-amplify/auth";
@@ -23,6 +21,8 @@ const Form = styled(Box)<React.ComponentProps<"form">>(({ theme }) => ({
   width: "100%",
   gap: theme.spacing(2),
 }));
+
+import { openErrorDialog } from "@/components/elements";
 
 export const LogInForm = () => {
   const navigate = useNavigate();
@@ -39,19 +39,19 @@ export const LogInForm = () => {
     mutationFn: signIn,
 
     onError: (error) => {
-      console.log(error);
       switch (error.name) {
-        // If the email is already in use, set email error message and jump back to the profile step
-        case COGNITO_ERROR_INCORRECT_CREDENTIALS:
+        // If incorrect credentials set form error
+        case INCORRECT_CREDENTIALS_ERROR:
           setErrors({
             email: "Invalid credentials",
             password: "Invalid credentials",
           });
           break;
 
-        // If unrecognized error display error toast
+        // If unrecognized error display error dialog
         default:
-          toast.error(error.message);
+          console.error(error);
+          openErrorDialog({ text: error.message });
       }
     },
     onSuccess: async () => {

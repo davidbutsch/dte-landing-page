@@ -1,4 +1,6 @@
-export const COGNITO_ERROR_USERNAME_EXISTS = "UsernameExistsException";
-export const COGNITO_ERROR_INCORRECT_CREDENTIALS = "NotAuthorizedException";
+export const USERNAME_EXISTS_ERROR = "UsernameExistsException";
+export const INCORRECT_CREDENTIALS_ERROR = "NotAuthorizedException";
 
-export const COGNITO_ERROR_INVALID_VERIFICATION_CODE = "CodeMismatchException";
+export const INVALID_VERIFICATION_CODE_ERROR = "CodeMismatchException";
+
+export const USER_UNAUTHENTICATED_ERROR = "UserUnAuthenticatedException";

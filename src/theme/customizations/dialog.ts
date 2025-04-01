@@ -9,4 +9,11 @@ export const dialogCustomizations: Components<Theme> = {
       },
     },
   },
+  MuiDialogTitle: {
+    styleOverrides: {
+      root: {
+        fontWeight: 600,
+      },
+    },
+  },
 };

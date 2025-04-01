@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { EditAccountMenuItem } from "./EditAccountMenuItem";
 import { LogOutMenuItem } from "./LogOutMenuItem";
 
@@ -40,10 +40,6 @@ export const AccountControls = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
-  useEffect(() => {
-    console.log("render");
-  });
 
   return (
     <>

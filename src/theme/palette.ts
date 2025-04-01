@@ -11,7 +11,7 @@ export const palette: PaletteOptions = {
   cream: createColor("#FAF5EA"),
   text: {
     primary: "#211340",
-    secondary: "#4c4361",
+    secondary: "#211340",
   },
   background: {
     default: "#FAF5EA",
