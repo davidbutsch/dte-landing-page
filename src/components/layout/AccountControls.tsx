@@ -53,14 +53,12 @@ export const AccountControls = () => {
         aria-expanded={open ? "true" : undefined}
       >
         <Avatar
-          variant="square"
+          variant="rounded"
           sx={{
-            width: 32,
-            height: 32,
             bgcolor: theme.palette.primary.main,
           }}
         >
-          {/* {user.attributes.given_name?.[0]} */}
+          {user.attributes.given_name?.[0]}
         </Avatar>
       </IconButton>
       {/* Account controls menu */}
@@ -96,15 +94,16 @@ export const AccountControls = () => {
             aria-expanded={open ? "true" : undefined}
           >
             <Avatar
-              variant="square"
+              variant="rounded"
               sx={{
                 bgcolor: theme.palette.primary.main,
                 color: "#fff",
                 height: "64px",
                 width: "64px",
+                fontSize: 34,
               }}
             >
-              {/* {user.attributes.given_name?.[0]} */}
+              {user.attributes.given_name?.[0]}
             </Avatar>
           </IconButton>
 

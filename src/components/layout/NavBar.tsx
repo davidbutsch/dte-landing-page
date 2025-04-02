@@ -23,12 +23,12 @@ const AuthenticationLinks = () => {
       ) : (
         <>
           <Link to="/log-in">
-            <Button size="small" color="cream" variant="contained">
+            <Button color="cream" variant="contained">
               Log In
             </Button>
           </Link>
-          <Link to="/log-in">
-            <Button size="small" color="primary" variant="contained">
+          <Link to="/sign-up">
+            <Button color="primary" variant="contained">
               Sign Up
             </Button>
           </Link>
@@ -41,8 +41,8 @@ const AuthenticationLinks = () => {
 const Logo = () => {
   return (
     <Box flex={1} display="flex" alignItems="center">
-      <Link to="/" style={{ height: 24 }}>
-        <img src={DTE_LOGO_URL} height={24} />
+      <Link to="/" style={{ height: 32 }}>
+        <img src={DTE_LOGO_URL} height={32} />
       </Link>
     </Box>
   );
@@ -66,7 +66,6 @@ const NavigationLinks = ({ pages }: NavigationLinksProps) => {
       {pages.map((page) => (
         <Link to={page.to} key={page.to}>
           <Button
-            size="small"
             color="cream"
             variant="contained"
             sx={{
@@ -91,12 +90,17 @@ export const NavBar = () => {
       position="sticky"
       color="inherit"
       sx={{
-        borderBottom: "2px solid #000",
+        borderBottom: "1px solid #000",
       }}
     >
       <Container>
-        <Toolbar disableGutters>
-          <Stack direction="row" width="100%">
+        <Toolbar
+          sx={{
+            height: 72,
+          }}
+          disableGutters
+        >
+          <Stack justifyContent="center" direction="row" width="100%">
             <Logo />
             <NavigationLinks pages={pages} />
             <AuthenticationLinks />
