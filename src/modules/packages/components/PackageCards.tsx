@@ -106,6 +106,7 @@ const CardTags = ({ tags }: { tags: PackageCardTag[] }) => {
     <Stack mb={2} direction="row" gap={2}>
       {tags.map((tag) => (
         <Chip
+          key={tag.label}
           size="small"
           color={
             tag.color as
@@ -161,7 +162,7 @@ const CardServices = ({ services }: { services: string[] }) => {
   return (
     <List dense>
       {services.map((service) => (
-        <ListItem disableGutters>
+        <ListItem disableGutters key={service}>
           <Icon
             sx={{ mr: 2 }}
             color="success"

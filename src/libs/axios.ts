@@ -1,5 +1,6 @@
+import { env } from "@/common";
 import Axios from "axios";
 
 export const api = Axios.create({
-  withCredentials: true,
+  baseURL: env.API_URL,
 });

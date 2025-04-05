@@ -1,11 +1,11 @@
-import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { defineConfig } from "vite";
+import mkcert from "vite-plugin-mkcert";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), basicSsl()],
+  plugins: [react(), mkcert()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src/"),

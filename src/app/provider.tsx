@@ -15,7 +15,6 @@ export const AppProvider = ({ children }: AppProviderProps): JSX.Element => {
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
-
         <ThemeProvider>
           {/* Reusable Components */}
           <Toaster />

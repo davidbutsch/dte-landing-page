@@ -6,6 +6,8 @@ const createEnv = () => {
     USER_POOL_ID: z.string(),
     USER_POOL_CLIENT_ID: z.string(),
     IDENTITY_POOL_ID: z.string(),
+    API_URL: z.string(),
+    STRIPE_PUBLISHABLE_KEY: z.string(),
   });
 
   // remove .env variable 'VITE_APP_' prefix
