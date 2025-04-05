@@ -7,7 +7,7 @@ export const menuCustomizations: Components<Theme> = {
     styleOverrides: {
       paper: {
         boxShadow: "2px 2px 0px 1px #000",
-        outline: "1px solid #000",
+        outline: "1px solid",
       },
     },
     defaultProps: {

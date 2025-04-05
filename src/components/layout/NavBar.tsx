@@ -7,7 +7,7 @@ import { AccountControls } from "./AccountControls";
 const pages = [
   { name: "Home", to: "/" },
   { name: "Events", to: "/events" },
-  { name: "Programs", to: "/programs" },
+  { name: "Packages", to: "/packages" },
   { name: "Teams", to: "/teams" },
   { name: "Coaches", to: "/staff" },
 ];

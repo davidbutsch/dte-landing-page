@@ -175,7 +175,7 @@ export const EditAccountMenuItem = () => {
         }}
       >
         <DialogTitle>Edit Account Details</DialogTitle>
-        <DialogContent dividers>
+        <DialogContent>
           <Stack gap={2}>
             <FormControl>
               <FormLabel htmlFor="givenName" required>
