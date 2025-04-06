@@ -1,7 +1,6 @@
 import { USER_UNAUTHENTICATED_ERROR } from "@/common";
 import { openErrorDialog } from "@/components";
 import { User } from "@/modules/auth/types";
-import { fetchUserAttributes, getCurrentUser } from "@aws-amplify/auth";
 import { create } from "zustand";
 
 type AuthStoreState = {
@@ -27,10 +26,26 @@ export const useAuthStore = create<AuthStoreState>((set: any) => ({
 export const storeUser = async (): Promise<void> => {
   try {
     // Get user data, if not logged in an exception will be thrown
-    const userAuthDetails = await getCurrentUser();
-    const userAttributes = await fetchUserAttributes();
+    // const userAuthDetails = await getCurrentUser();
+    // const userAttributes = await fetchUserAttributes();
 
-    const user = { ...userAuthDetails, attributes: userAttributes };
+    // const user = { ...userAuthDetails, attributes: userAttributes };
+
+    const user: User = {
+      username: "c801e320-5041-7074-8ad5-48bbc8c8212b",
+      userId: "c801e320-5041-7074-8ad5-48bbc8c8212b",
+      signInDetails: {
+        loginId: "dcbutsch@gmail.com",
+        authFlowType: "USER_SRP_AUTH",
+      },
+      attributes: {
+        email: "dcbutsch@gmail.com",
+        email_verified: "true",
+        family_name: "Butsch",
+        given_name: "David",
+        sub: "c801e320-5041-7074-8ad5-48bbc8c8212b",
+      },
+    };
 
     useAuthStore.getState().setUser(user); // Store user if authenticated
   } catch (error) {

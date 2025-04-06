@@ -4,10 +4,14 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import { CheckoutForm } from "./CheckoutForm";
 
-export const Checkout = () => {
+export type CheckoutOptions = {
+  productId: string;
+};
+
+export const Checkout = ({ productId }: CheckoutOptions) => {
   const { data: response } = useQuery({
     queryKey: ["paymentIntent"],
-    queryFn: createPaymentIntent,
+    queryFn: () => createPaymentIntent(productId),
   });
 
   if (response && response.data.clientSecret)

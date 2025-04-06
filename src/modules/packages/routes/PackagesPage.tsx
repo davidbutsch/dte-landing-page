@@ -1,4 +1,4 @@
-import { PackageCards } from "@/modules/packages";
+import { PackageCards } from "@/modules/packages/components";
 import { Stack } from "@mui/material";
 
 export const PackagesPage = () => {
