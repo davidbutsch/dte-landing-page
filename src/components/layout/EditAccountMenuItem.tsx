@@ -1,4 +1,4 @@
-import { keys } from "@/common";
+import { clearStateStrings, isShallowEqual } from "@/common";
 import { openErrorDialog } from "@/components/elements";
 import { storeUser, useAuthStore } from "@/modules/auth";
 import { updateUserAttributes } from "@aws-amplify/auth";
@@ -27,24 +27,6 @@ const AccountDetailsSchema = z.object({
     .string({ message: "Invalid last name" })
     .min(1, { message: "Last name must contain at least 1 character" }),
 });
-
-function clearStrings<T extends Record<string, string | undefined>>(obj: T): T {
-  return Object.fromEntries(Object.entries(obj).map(([key]) => [key, ""])) as T;
-}
-
-function areInputsEqual(inputs1: Inputs, inputs2: Inputs) {
-  const inputKeys = keys(inputs1);
-
-  // Check if every key pair from both input objects are equal
-  const allInputsEqual = inputKeys.every((key) => inputs1[key] == inputs2[key]);
-
-  return allInputsEqual;
-}
-
-type Inputs = {
-  givenName: string | undefined;
-  familyName: string | undefined;
-};
 
 export const EditAccountMenuItem = () => {
   const { user } = useAuthStore();
@@ -78,10 +60,10 @@ export const EditAccountMenuItem = () => {
   // STATE
   const [open, setOpen] = useState(false);
   const [inputs, setInputs] = useState(initialInputs);
-  const [errors, setErrors] = useState(clearStrings(initialInputs));
+  const [errors, setErrors] = useState(clearStateStrings(initialInputs));
 
   // Disable save button if no changes have been made
-  const isSaveDisabled = areInputsEqual(initialInputs, inputs);
+  const isSaveDisabled = isShallowEqual(initialInputs, inputs);
 
   // METHODS
   const handleDialogClose = () => setOpen(false);
@@ -124,7 +106,7 @@ export const EditAccountMenuItem = () => {
    */
   const validateInputs = () => {
     // Reset the error state for all input fields
-    setErrors(clearStrings(initialInputs));
+    setErrors(clearStateStrings(initialInputs));
 
     /*
       Each 'errors' property corrosponds to an input field.
