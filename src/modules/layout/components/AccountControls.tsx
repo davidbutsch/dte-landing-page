@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/modules/auth";
+import { EditProfileMenuItem } from "@/modules/auth/components";
 import { theme } from "@/theme";
 import {
   Avatar,
@@ -9,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { EditAccountMenuItem } from "./EditAccountMenuItem";
 import { LogOutMenuItem } from "./LogOutMenuItem";
 
 /**
@@ -118,7 +118,7 @@ export const AccountControls = () => {
             </Typography>
           </Stack>
         </Stack>
-        <EditAccountMenuItem />
+        <EditProfileMenuItem />
         <Divider />
         <LogOutMenuItem />
       </Menu>

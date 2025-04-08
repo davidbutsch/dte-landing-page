@@ -1,6 +1,6 @@
 import { clearStateStrings, isShallowEqual } from "@/common";
 import { openErrorDialog } from "@/components";
-import { storeUser, useAuthStore } from "@/modules/auth";
+import { ProfileDetailsSchema, storeUser, useAuthStore } from "@/modules/auth";
 import { updateUserAttributes } from "@aws-amplify/auth";
 import {
   Button,
@@ -17,18 +17,8 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { z } from "zod";
 
-const AccountDetailsSchema = z.object({
-  givenName: z
-    .string({ message: "Invalid first name" })
-    .min(2, { message: "First name must contain at least 2 characters" }),
-  familyName: z
-    .string({ message: "Invalid last name" })
-    .min(1, { message: "Last name must contain at least 1 character" }),
-});
-
-export const EditAccountMenuItem = () => {
+export const EditProfileMenuItem = () => {
   const { user } = useAuthStore();
   if (!user) return;
 
@@ -100,7 +90,7 @@ export const EditAccountMenuItem = () => {
   };
 
   /**
-   * Validates all inputs for the account editor.
+   * Validates all inputs for the profile editor.
    *
    * @returns True if there are no validation errors, otherwise false.
    */
@@ -113,7 +103,7 @@ export const EditAccountMenuItem = () => {
       The value of each property is an array of error message strings.
       These messages are joined together as one string when updating the error state below.
     */
-    const errors = AccountDetailsSchema.safeParse({
+    const errors = ProfileDetailsSchema.safeParse({
       givenName: inputs.givenName,
       familyName: inputs.familyName,
     }).error?.flatten().fieldErrors;
@@ -141,7 +131,7 @@ export const EditAccountMenuItem = () => {
         >
           person_edit
         </ListItemIcon>
-        Edit Account
+        Edit Profile
       </MenuItem>
       {/* Dialog popup */}
       <Dialog
@@ -156,7 +146,7 @@ export const EditAccountMenuItem = () => {
           if (e.key === "Enter" && !isSaveDisabled) handleSave();
         }}
       >
-        <DialogTitle>Edit Account Details</DialogTitle>
+        <DialogTitle>Edit Profile</DialogTitle>
         <DialogContent>
           <Stack gap={2}>
             <FormControl>
