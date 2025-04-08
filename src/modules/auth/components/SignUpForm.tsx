@@ -22,6 +22,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FieldErrorList } from "./FieldErrorList";
 
 const Form = styled(Box)<React.ComponentProps<"form">>(({ theme }) => ({
   display: "flex",
@@ -35,14 +36,22 @@ const StepButton = styled(Button)(() => ({
   width: 0,
 }));
 
-const initialState = {
-  email: "",
-  firstName: "",
-  lastName: "",
-  password: "",
-  repeatPassword: "",
-  code: "",
-};
+const fields = [
+  "email",
+  "firstName",
+  "lastName",
+  "password",
+  "repeatPassword",
+  "code",
+];
+
+const initialInputsState = Object.fromEntries(
+  fields.map((field) => [field, ""])
+) as Record<(typeof fields)[number], string>;
+
+const initialErrorsState = Object.fromEntries(
+  fields.map((field) => [field, []])
+) as Record<(typeof fields)[number], string[]>;
 
 /**
  * SignUpForm component handles the user sign-up process.
@@ -55,8 +64,8 @@ export const SignUpForm = () => {
 
   // STATE
   const [activeStep, setActiveStep] = useState(0);
-  const [inputs, setInputs] = useState(initialState);
-  const [errors, setErrors] = useState(initialState);
+  const [inputs, setInputs] = useState(initialInputsState);
+  const [errors, setErrors] = useState(initialErrorsState);
 
   // API
   const signUpUserMutation = useMutation({
@@ -67,7 +76,7 @@ export const SignUpForm = () => {
         case USERNAME_EXISTS_ERROR:
           setErrors((current) => ({
             ...current,
-            email: "Email already registered",
+            email: ["Email already registered"],
           }));
           setActiveStep(0);
           break;
@@ -89,7 +98,7 @@ export const SignUpForm = () => {
         case INVALID_VERIFICATION_CODE_ERROR:
           setErrors((current) => ({
             ...current,
-            code: "Invalid confirmation code",
+            code: ["Invalid confirmation code"],
           }));
           break;
         // If unrecognized error, display error dialog
@@ -164,7 +173,7 @@ export const SignUpForm = () => {
    */
   const validateStepInputs = (step: number): boolean => {
     // Reset the error state for all input fields
-    setErrors(initialState);
+    setErrors(initialErrorsState);
 
     // Select appropriate data/schema required to validate current step
     const stepData = [
@@ -192,13 +201,12 @@ export const SignUpForm = () => {
 
     // Updates the error message for each input field
     setErrors((current) => ({
-      email: unsafeErrors?.email?.join(", ") || current.email,
-      firstName: unsafeErrors?.firstName?.join(", ") || current.firstName,
-      lastName: unsafeErrors?.lastName?.join(", ") || current.lastName,
-      password: unsafeErrors?.password?.join(", ") || current.password,
-      repeatPassword:
-        unsafeErrors?.repeatPassword?.join(", ") || current.password,
-      code: unsafeErrors?.code?.join(", ") || current.code,
+      email: unsafeErrors?.email || current.email,
+      firstName: unsafeErrors?.firstName || current.firstName,
+      lastName: unsafeErrors?.lastName || current.lastName,
+      password: unsafeErrors?.password || current.password,
+      repeatPassword: unsafeErrors?.repeatPassword || current.password,
+      code: unsafeErrors?.code || current.code,
     }));
 
     // Return true if no errors
@@ -231,7 +239,7 @@ export const SignUpForm = () => {
             </FormLabel>
             <TextField
               error={!!errors.email}
-              helperText={errors.email}
+              helperText={<FieldErrorList errors={errors.email} />}
               value={inputs.email}
               onChange={onChange}
               id="email"
@@ -251,7 +259,7 @@ export const SignUpForm = () => {
             </FormLabel>
             <TextField
               error={!!errors.firstName}
-              helperText={errors.firstName}
+              helperText={<FieldErrorList errors={errors.firstName} />}
               value={inputs.firstName}
               onChange={onChange}
               id="firstName"
@@ -270,7 +278,7 @@ export const SignUpForm = () => {
             </FormLabel>
             <TextField
               error={!!errors.lastName}
-              helperText={errors.lastName}
+              helperText={<FieldErrorList errors={errors.lastName} />}
               value={inputs.lastName}
               onChange={onChange}
               id="lastName"
@@ -293,7 +301,7 @@ export const SignUpForm = () => {
             </FormLabel>
             <TextField
               error={!!errors.password}
-              helperText={errors.password}
+              helperText={<FieldErrorList errors={errors.password} />}
               value={inputs.password}
               onChange={onChange}
               id="password"
@@ -311,10 +319,9 @@ export const SignUpForm = () => {
             <FormLabel htmlFor="repeatPassword" required>
               Repeat Password
             </FormLabel>
-
             <TextField
               error={!!errors.repeatPassword}
-              helperText={errors.repeatPassword}
+              helperText={<FieldErrorList errors={errors.repeatPassword} />}
               value={inputs.repeatPassword}
               onChange={onChange}
               id="repeatPassword"
@@ -337,7 +344,7 @@ export const SignUpForm = () => {
             </FormLabel>
             <TextField
               error={!!errors.code}
-              helperText={errors.code}
+              helperText={<FieldErrorList errors={errors.password} />}
               value={inputs.code}
               onChange={onChange}
               id="code"
@@ -356,7 +363,8 @@ export const SignUpForm = () => {
         <StepButton
           disabled={activeStep == 0 || activeStep == 2} // Disable back button on first step 0 or confirmation code step
           onClick={handleBack}
-          variant="outlined"
+          variant="contained"
+          color="cream"
           sx={{ flex: 1 }}
         >
           Back
