@@ -1,6 +1,6 @@
 import { LoadingWrapper } from "@/components";
-import { PackageCard } from "@/modules/packages";
-import { getProduct } from "@/modules/stripe/api";
+import { ProductCard } from "@/modules/products";
+import { getProduct } from "@/modules/products/api";
 import { Checkout } from "@/modules/stripe/components";
 import { Box, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
@@ -34,7 +34,7 @@ export const CheckoutPage = () => {
 
         {/* Temporary product display component */}
         <Box width={{ md: "40%" }}>
-          <PackageCard product={response?.data} />
+          <ProductCard product={response?.data} />
         </Box>
       </Stack>
     </LoadingWrapper>

@@ -1,15 +1,15 @@
 import { AppLayout } from "@/components";
 import { Outlet, RouteObject } from "react-router-dom";
-import { PackagesPage } from "./PackagesPage";
+import { ProductsPage } from "./ProductsPage";
 
-export const packagesRoutes: RouteObject[] = [
+export const productsRoutes: RouteObject[] = [
   {
     element: (
       <AppLayout>
         <Outlet />
       </AppLayout>
     ),
-    path: "/packages/",
-    children: [{ path: "/packages/", element: <PackagesPage /> }],
+    path: "/products/",
+    children: [{ path: "/products/", element: <ProductsPage /> }],
   },
 ];

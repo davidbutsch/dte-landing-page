@@ -1,10 +1,10 @@
 import { LoadingWrapper } from "@/components";
-import { getProducts } from "@/modules/stripe";
+import { getProducts } from "@/modules/products";
 import { Container, Grid2 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { PackageCard } from "./PackageCard";
+import { ProductCard } from "./ProductCard";
 
-export const PackageCards = () => {
+export const ProductCards = () => {
   const { data: response, isLoading } = useQuery({
     queryKey: ["getProducts"],
     queryFn: getProducts,
@@ -15,7 +15,7 @@ export const PackageCards = () => {
       <Container>
         <Grid2 container spacing={2}>
           {response?.data.map((product) => (
-            <PackageCard product={product} key={product.id} />
+            <ProductCard product={product} key={product.id} />
           ))}
         </Grid2>
       </Container>

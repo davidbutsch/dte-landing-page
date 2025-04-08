@@ -3,7 +3,7 @@ import { useRoutes } from "react-router-dom";
 import { WaitForAuth } from "@/components";
 import { authRoutes } from "@/modules/auth";
 import { homeRoutes } from "@/modules/home";
-import { packagesRoutes } from "@/modules/packages";
+import { productsRoutes } from "@/modules/products";
 import { stripeRoutes } from "@/modules/stripe";
 import { CssBaseline } from "@mui/material";
 import { Outlet, RouteObject } from "react-router-dom";
@@ -26,8 +26,8 @@ export const routes: RouteObject[] = [
         children: authRoutes,
       },
       {
-        path: "/packages/",
-        children: packagesRoutes,
+        path: "/products/",
+        children: productsRoutes,
       },
       {
         path: "/stripe/",

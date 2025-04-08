@@ -1,12 +1,12 @@
 import { Icon, List, ListItem, ListItemText } from "@mui/material";
 
-export type PackageCardFeaturesOptions = {
+export type ProductCardFeaturesOptions = {
   features: string[];
 };
 
-export const PackageCardFeatures = ({
+export const ProductCardFeatures = ({
   features,
-}: PackageCardFeaturesOptions) => {
+}: ProductCardFeaturesOptions) => {
   return (
     <List dense>
       {features.map((feature) => (

@@ -1,16 +1,16 @@
 import {
-  PackageCardCTA,
-  PackageCardFeatures,
-} from "@/modules/packages/components";
+  ProductCardCTA,
+  ProductCardFeatures,
+} from "@/modules/products/components";
 import { Product } from "@/modules/stripe";
 import { theme } from "@/theme";
 import { Grid2, Paper, Stack, Typography } from "@mui/material";
 
-export type PackageCardOptions = {
+export type ProductCardOptions = {
   product: Product;
 };
 
-export const PackageCard = ({ product }: PackageCardOptions) => {
+export const ProductCard = ({ product }: ProductCardOptions) => {
   return (
     <Grid2 size={{ xs: 12, sm: 6, md: 4 }} key={product.id}>
       <Paper variant="outlined" sx={{ padding: theme.spacing(2) }}>
@@ -26,8 +26,8 @@ export const PackageCard = ({ product }: PackageCardOptions) => {
           </Typography>
         </Stack>
 
-        <PackageCardCTA productId={product.id} />
-        <PackageCardFeatures features={product.marketingFeatures} />
+        <ProductCardCTA productId={product.id} />
+        <ProductCardFeatures features={product.marketingFeatures} />
       </Paper>
     </Grid2>
   );
