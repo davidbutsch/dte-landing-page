@@ -15,14 +15,14 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { openErrorDialog } from "@/components";
+
 const Form = styled(Box)<React.ComponentProps<"form">>(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   width: "100%",
   gap: theme.spacing(2),
 }));
-
-import { openErrorDialog } from "@/components/elements";
 
 export const LogInForm = () => {
   const navigate = useNavigate();

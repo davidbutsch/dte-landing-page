@@ -1,8 +1,8 @@
 import { useRoutes } from "react-router-dom";
 
-import { WaitForAuth } from "@/components";
 import { authRoutes } from "@/modules/auth";
 import { homeRoutes } from "@/modules/home";
+import { WaitForAuth } from "@/modules/layout";
 import { productsRoutes } from "@/modules/products";
 import { stripeRoutes } from "@/modules/stripe";
 import { CssBaseline } from "@mui/material";

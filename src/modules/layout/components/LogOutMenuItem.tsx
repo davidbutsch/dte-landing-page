@@ -1,4 +1,4 @@
-import { openErrorDialog } from "@/components/elements";
+import { openErrorDialog } from "@/components";
 import { signOut } from "@aws-amplify/auth";
 import { ListItemIcon, MenuItem } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";

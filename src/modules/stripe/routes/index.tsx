@@ -1,4 +1,4 @@
-import { AppLayout } from "@/components";
+import { AppLayout } from "@/modules/layout";
 import { Outlet, RouteObject } from "react-router-dom";
 import { CheckoutPage } from "./CheckoutPage";
 import { RedirectPage } from "./RedirectPage";

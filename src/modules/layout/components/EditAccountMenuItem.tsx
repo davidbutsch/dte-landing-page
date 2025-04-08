@@ -1,5 +1,5 @@
 import { clearStateStrings, isShallowEqual } from "@/common";
-import { openErrorDialog } from "@/components/elements";
+import { openErrorDialog } from "@/components";
 import { storeUser, useAuthStore } from "@/modules/auth";
 import { updateUserAttributes } from "@aws-amplify/auth";
 import {
