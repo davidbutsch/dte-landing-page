@@ -1,5 +1,4 @@
 import { api } from "@/libs";
-import { getIdToken } from "@/modules/auth";
 import { Customer } from "@/modules/stripe";
 import { AxiosError, AxiosResponse } from "axios";
 import { createStripeCustomer } from "./createStripeCustomer";
@@ -15,19 +14,13 @@ export type GetStripeCustomerResponse = AxiosResponse<Customer>;
  */
 export const getStripeCustomer =
   async (): Promise<GetStripeCustomerResponse> => {
-    const idToken = await getIdToken();
-
     try {
       // try to fetch customer
-      return await api.get(`/stripe/customers/me`, {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      });
+      return await api.get(`/stripe/customers/me`);
     } catch (error) {
       // if customer not found, create new customer
       if (error instanceof AxiosError && error.status == 404)
-        return await createStripeCustomer(idToken);
+        return await createStripeCustomer();
       // throw all other errors
       else throw error;
     }
