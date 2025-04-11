@@ -20,3 +20,9 @@ declare module "@mui/material/Icon" {
     cream: true;
   }
 }
+
+declare module "@mui/material/Chip" {
+  interface ChipPropsColorOverrides {
+    cream: true;
+  }
+}
