@@ -1,5 +1,3 @@
-export * from "./AddPaymentMethod";
-export * from "./BillingDetailsDialog";
-export * from "./BillingMenuItem";
+export * from "./BillingDetails";
 export * from "./Checkout";
-export * from "./CheckoutForm";
+export * from "./PaymentMethods";

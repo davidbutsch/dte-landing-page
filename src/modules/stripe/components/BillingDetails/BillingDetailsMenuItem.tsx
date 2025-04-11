@@ -5,7 +5,7 @@ import { BillingDetailsDialog } from "./BillingDetailsDialog";
 /**
  * A menu item component that opens a dialog to display billing details.
  */
-export const EditBillingMenuItem = () => {
+export const BillingDetailsMenuItem = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
 
   const onDialogOpen = () => setDialogOpen(true);

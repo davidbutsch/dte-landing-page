@@ -1,4 +1,4 @@
-import { NavBar } from "./NavBar";
+import { NavBar } from "./Navbar/NavBar";
 
 type AppLayoutProps = {
   children: React.ReactNode;

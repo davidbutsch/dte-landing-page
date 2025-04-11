@@ -1,5 +1,5 @@
 import { EditProfileMenuItem, useAuthStore } from "@/modules/auth";
-import { EditBillingMenuItem } from "@/modules/stripe";
+import { BillingDetailsMenuItem } from "@/modules/stripe";
 import { theme } from "@/theme";
 import {
   Avatar,
@@ -119,7 +119,7 @@ export const AccountControls = () => {
           </Stack>
         </Stack>
         <EditProfileMenuItem />
-        <EditBillingMenuItem />
+        <BillingDetailsMenuItem />
         <Divider />
         <LogOutMenuItem />
       </Menu>
