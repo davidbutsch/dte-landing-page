@@ -1,8 +1,8 @@
 import { DTE_LOGO_URL } from "@/common";
 import { useAuthStore } from "@/modules/auth";
+import { AccountControls } from "@/modules/layout";
 import { AppBar, Box, Button, Container, Stack, Toolbar } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-import { AccountControls } from "./AccountControls";
 
 const pages = [
   { name: "Home", to: "/" },

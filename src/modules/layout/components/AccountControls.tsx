@@ -1,5 +1,5 @@
-import { useAuthStore } from "@/modules/auth";
-import { EditProfileMenuItem } from "@/modules/auth/components";
+import { EditProfileMenuItem, useAuthStore } from "@/modules/auth";
+import { EditBillingMenuItem } from "@/modules/stripe";
 import { theme } from "@/theme";
 import {
   Avatar,
@@ -19,7 +19,7 @@ export const AccountControls = () => {
   const { user } = useAuthStore();
   if (!user) return;
 
-  // Menu attaches itself to anchor element
+  // Menu attaches to anchor element
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl); // If anchor element is null, open is false and the menu component is hidden
 
@@ -119,6 +119,7 @@ export const AccountControls = () => {
           </Stack>
         </Stack>
         <EditProfileMenuItem />
+        <EditBillingMenuItem />
         <Divider />
         <LogOutMenuItem />
       </Menu>

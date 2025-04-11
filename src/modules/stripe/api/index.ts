@@ -1,2 +1,4 @@
 export * from "./createPaymentIntent";
-export * from "./getMyStripeCustomer";
+export * from "./createSetupIntent";
+export * from "./createStripeCustomer";
+export * from "./getStripeCustomer";
