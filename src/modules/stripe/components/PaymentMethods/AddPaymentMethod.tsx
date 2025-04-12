@@ -66,7 +66,8 @@ const AddPaymentMethodDialog = ({
     setIsLoading(false);
 
     // Open error dialog on error
-    if (result.error) openErrorDialog({ text: result.error.message });
+    if (result.error && result.error.type != "validation_error")
+      openErrorDialog({ text: result.error.message });
     // If payment was successful, close dialog box and refetch payment methods
     if (result.setupIntent?.status === "succeeded") {
       close();
@@ -78,7 +79,11 @@ const AddPaymentMethodDialog = ({
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle>Add Payment Method</DialogTitle>
       <DialogContent>
-        <PaymentElement />
+        <PaymentElement
+          options={{
+            layout: "tabs",
+          }}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={close} color="cream" variant="contained">
