@@ -16,7 +16,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 type AddPaymentMethodDialogOptions = {
@@ -35,6 +35,8 @@ const AddPaymentMethodDialog = ({
   open,
   onClose,
 }: AddPaymentMethodDialogOptions) => {
+  const queryClient = useQueryClient();
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -65,9 +67,13 @@ const AddPaymentMethodDialog = ({
 
     // Open error dialog on error
     if (result.error) openErrorDialog({ text: result.error.message });
-    // Close add payment method dialog if payment was successful
-    if (result.setupIntent?.status === "succeeded") close();
+    // If payment was successful, close dialog box and refetch payment methods
+    if (result.setupIntent?.status === "succeeded") {
+      close();
+      queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
+    }
   };
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle>Add Payment Method</DialogTitle>

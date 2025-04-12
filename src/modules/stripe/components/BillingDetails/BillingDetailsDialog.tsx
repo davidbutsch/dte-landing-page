@@ -2,6 +2,7 @@ import {
   AddPaymentMethod,
   getStripeCustomer,
   GetStripeCustomerResponse,
+  PaymentMethods,
 } from "@/modules/stripe";
 import {
   Button,
@@ -59,6 +60,7 @@ export const BillingDetailsDialog = ({
             }}
           />
           <Typography fontWeight={600}>Payment Methods</Typography>
+          <PaymentMethods />
           <AddPaymentMethod />
         </Stack>
       </DialogContent>
