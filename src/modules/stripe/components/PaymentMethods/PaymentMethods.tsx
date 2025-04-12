@@ -1,8 +1,11 @@
+import { openErrorDialog } from "@/components";
 import {
   CardCheck,
   CardIcon,
   PaymentMethod,
   getPaymentMethods,
+  getStripeCustomer,
+  updateDefaultPaymentMethod,
 } from "@/modules/stripe";
 import {
   Button,
@@ -17,7 +20,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 export type CardCheckLogo = {
@@ -104,6 +107,63 @@ const CardMethodSubListItem = ({
   );
 };
 
+type CardMethodActiveButtonOptions = {
+  method: PaymentMethod;
+  visible: boolean;
+};
+
+const CardMethodActiveButton = ({
+  method,
+  visible,
+}: CardMethodActiveButtonOptions) => {
+  // API
+  const { data: response, refetch } = useQuery({
+    queryKey: ["customer", "me"],
+    queryFn: getStripeCustomer,
+  });
+
+  const isActive = response?.data?.invoice.defaultPaymentMethod === method.id;
+
+  const updateDefaultPaymentMethodMutation = useMutation({
+    mutationFn: () => updateDefaultPaymentMethod(method.id),
+    // refetch customer data after updating default payment method
+    onSuccess: () => refetch(),
+    onError: (error) => openErrorDialog({ text: error.message }),
+  });
+
+  // METHODS
+
+  const onSetActive = () => updateDefaultPaymentMethodMutation.mutate();
+
+  const isLoading = updateDefaultPaymentMethodMutation.isPending;
+
+  if (isActive)
+    return (
+      <Button
+        size="small"
+        variant="contained"
+        startIcon={<Icon className="material-symbols-outlined">check</Icon>}
+        disabled
+      >
+        Active
+      </Button>
+    );
+  else if (visible || isLoading)
+    return (
+      <Button
+        size="small"
+        variant="contained"
+        color="cream"
+        className="material-symbols-outlined"
+        onClick={onSetActive}
+        loading={isLoading}
+        disabled={isLoading}
+      >
+        Set Active
+      </Button>
+    );
+};
+
 type CardMethodOptions = {
   method: PaymentMethod;
 };
@@ -113,30 +173,26 @@ const CardMethod = ({ method }: CardMethodOptions) => {
 
   const onClick = () => setOpen((prev) => !prev);
 
-  console.log(method);
+  const [isSetActiveButtonVisible, setIsSetActiveButtonVisible] =
+    useState(false);
 
   return (
     <>
       <ListItem
+        onMouseEnter={() => setIsSetActiveButtonVisible(true)} // show button on hover
+        onMouseLeave={() => setIsSetActiveButtonVisible(false)} // hide button on mouse leave
         secondaryAction={
           <Stack direction="row" spacing={2}>
-            <Button
-              size="small"
-              variant="contained"
-              color="cream"
-              sx={{
-                cursor: "pointer",
-                color: "#000",
-              }}
-              className="material-symbols-outlined"
-            >
-              Set Default
-            </Button>
+            <CardMethodActiveButton
+              method={method}
+              visible={isSetActiveButtonVisible || open}
+            />
             <IconButton
               onClick={onClick}
               sx={{
                 cursor: "pointer",
                 width: 27,
+                height: 27,
                 color: "#000",
               }}
               className="material-symbols-outlined"
@@ -208,12 +264,12 @@ export const PaymentMethods = () => {
     <List dense disablePadding>
       {response?.data.map((method, index) => {
         return (
-          <>
-            <CardMethod key={method.id} method={method} />
+          <React.Fragment key={method.id}>
+            <CardMethod method={method} />
             {index < response.data.length - 1 && ( // only display divider if not last item
               <Divider variant="inset" />
             )}
-          </>
+          </React.Fragment>
         );
       })}
     </List>
