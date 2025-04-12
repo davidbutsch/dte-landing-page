@@ -1,8 +1,7 @@
-import { LoadingWrapper } from "@/components";
-import { ProductCard } from "@/modules/products";
+import { LoadingWrapper, openErrorDialog } from "@/components";
 import { getProduct } from "@/modules/products/api";
-import { Checkout } from "@/modules/stripe/components";
-import { Box, Stack } from "@mui/material";
+import { Checkout, CheckoutProductDisplay } from "@/modules/stripe";
+import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useSearchParams } from "react-router-dom";
 
@@ -23,19 +22,11 @@ export const CheckoutPage = () => {
 
   return (
     <LoadingWrapper isLoading={isLoading}>
-      <Stack
-        direction={{ xs: "column-reverse", md: "row" }}
-        gap={4}
-        padding={4}
-      >
-        <Box width="100%">
-          <Checkout productId={productId} />
-        </Box>
-
-        {/* Temporary product display component */}
-        <Box width={{ md: "40%" }}>
-          <ProductCard product={response?.data} />
-        </Box>
+      <Stack direction="row">
+        <CheckoutProductDisplay product={response.data} />
+        <Checkout
+          priceId={response.data.defaultPrice!.id} // TODO: Handle case where no default price exists
+        />
       </Stack>
     </LoadingWrapper>
   );
