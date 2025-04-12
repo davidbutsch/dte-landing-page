@@ -58,7 +58,7 @@ const AddPaymentMethodDialog = ({
       // `Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/lol`, // Redirect URL after payment confirmation
+        return_url: window.location.origin, // Redirect URL after payment confirmation
       },
       redirect: "if_required", // Only redirects if required (such as a bank redirect)
     });
