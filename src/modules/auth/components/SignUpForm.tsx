@@ -21,7 +21,6 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FieldErrorList } from "./FieldErrorList";
 
 const Form = styled(Box)<React.ComponentProps<"form">>(({ theme }) => ({
@@ -60,8 +59,6 @@ const initialErrorsState = Object.fromEntries(
  * On successful submission, it creates a new user and navigates to the home page.
  */
 export const SignUpForm = () => {
-  const navigate = useNavigate();
-
   // STATE
   const [activeStep, setActiveStep] = useState(0);
   const [inputs, setInputs] = useState(initialInputsState);
@@ -114,8 +111,8 @@ export const SignUpForm = () => {
       // After user is signed in, set user state
       await storeUser();
 
-      // Finally, navigate to root
-      navigate("/");
+      // Finally, navigate to root with page reload
+      window.location.href = "/";
     },
   });
 

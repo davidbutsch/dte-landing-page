@@ -13,7 +13,6 @@ import { CredentialsSchema } from "@/modules/auth/schemas";
 import { signIn } from "@aws-amplify/auth";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { openErrorDialog } from "@/components";
 
@@ -25,8 +24,6 @@ const Form = styled(Box)<React.ComponentProps<"form">>(({ theme }) => ({
 }));
 
 export const LogInForm = () => {
-  const navigate = useNavigate();
-
   // STATE
   const [inputs, setInputs] = useState({
     email: "",
@@ -58,8 +55,8 @@ export const LogInForm = () => {
       // After user is signed in, set user state
       storeUser();
 
-      // Then navigate to root
-      navigate("/");
+      // Then navigate to root with page reload
+      window.location.href = "/";
     },
   });
 
