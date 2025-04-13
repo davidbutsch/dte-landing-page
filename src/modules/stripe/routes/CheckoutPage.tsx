@@ -1,12 +1,24 @@
 import { LoadingWrapper } from "@/components";
 import { useAuthStore } from "@/modules/auth";
 import { getProduct } from "@/modules/products/api";
-import { Checkout, CheckoutProductDisplay } from "@/modules/stripe";
-import { Stack } from "@mui/material";
+import { CheckoutForm, CheckoutProductDetails } from "@/modules/stripe";
+import { Stack, useMediaQuery } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 
 export const CheckoutPage = () => {
+  const mdDown = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    // If "big" screen
+    if (!mdDown) document.body.style.overflow = "hidden"; // Prevent body scroll when checkout page is open
+
+    return () => {
+      document.body.style.overflow = "auto"; // Reset overflow to auto when component unmounts
+    };
+  }, []);
+
   const { user } = useAuthStore();
 
   const [searchParams] = useSearchParams();
@@ -28,11 +40,12 @@ export const CheckoutPage = () => {
 
   return (
     <LoadingWrapper isLoading={isLoading}>
-      <Stack direction="row">
-        <CheckoutProductDisplay product={response.data} />
-        <Checkout
-          priceId={response.data.defaultPrice!.id} // TODO: Handle case where no default price exists
-        />
+      <Stack
+        height={{ md: "calc(100vh - 72px)" }}
+        direction={{ sm: "column", md: "row" }}
+      >
+        <CheckoutProductDetails product={response.data} />
+        <CheckoutForm product={response.data} />
       </Stack>
     </LoadingWrapper>
   );

@@ -1,6 +1,6 @@
 import { SVGProps } from "react";
 
-const cardUrl = (brand: string) => `/public/cards/${brand}.svg`;
+const cardUrl = (brand: string) => `/cards/${brand}.svg`;
 
 export type CardIconOptions = {
   brand: string;

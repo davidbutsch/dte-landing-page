@@ -1,3 +1,4 @@
+export * from "./createCustomerPayment";
 export * from "./createCustomerSubscription";
 export * from "./createPaymentIntent";
 export * from "./createSetupIntent";

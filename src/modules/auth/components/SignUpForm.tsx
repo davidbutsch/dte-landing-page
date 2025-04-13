@@ -2,7 +2,7 @@ import {
   INVALID_VERIFICATION_CODE_ERROR,
   USERNAME_EXISTS_ERROR,
 } from "@/common";
-import { openErrorDialog } from "@/components";
+import { FieldErrorList, openErrorDialog } from "@/components";
 import { storeUser } from "@/modules/auth/hooks";
 import {
   ConfirmationCodeSchema,
@@ -21,7 +21,6 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { FieldErrorList } from "./FieldErrorList";
 
 const Form = styled(Box)<React.ComponentProps<"form">>(({ theme }) => ({
   display: "flex",
