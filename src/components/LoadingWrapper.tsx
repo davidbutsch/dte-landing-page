@@ -39,7 +39,7 @@ export const LoadingWrapper = ({
         <Fade in={!isLoading}>
           <Box
             sx={{
-              display: isLoading ? "none" : "inherit",
+              display: isLoading ? "none" : "block",
             }}
           >
             {children}
