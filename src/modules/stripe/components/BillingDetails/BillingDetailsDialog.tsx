@@ -1,12 +1,6 @@
-import {
-  AddPaymentMethod,
-  getStripeCustomer,
-  GetStripeCustomerResponse,
-  PaymentMethods,
-} from "@/modules/stripe";
+import { AddPaymentMethod, PaymentMethods } from "@/modules/stripe";
 import {
   Button,
-  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,8 +9,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 
 export type BillingDetailsDialogOptions = {
   open: ModalProps["open"];
@@ -34,37 +26,16 @@ export const BillingDetailsDialog = ({
   open,
   onClose,
 }: BillingDetailsDialogOptions) => {
-  // get stripe customer details
-  const getStripeCustomerQuery = useQuery<
-    GetStripeCustomerResponse,
-    AxiosError
-  >({
-    queryKey: ["customer", "me"],
-    queryFn: getStripeCustomer,
-  });
-
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle>Billing Details</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <Typography fontWeight={600}>Invoice Prefix</Typography>
-          <Chip
-            label={
-              getStripeCustomerQuery?.data?.data.invoice.prefix || "Loading..."
-            }
-            color="cream"
-            size="small"
-            sx={{
-              width: "fit-content",
-            }}
-          />
           <Typography fontWeight={600}>Payment Methods</Typography>
           <PaymentMethods />
           <AddPaymentMethod />
         </Stack>
       </DialogContent>
-
       <DialogActions>
         <Button
           color="cream"

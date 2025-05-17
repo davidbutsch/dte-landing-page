@@ -10,5 +10,4 @@ export type CreateStripeCustomerResponse = AxiosResponse<Customer>;
  * @returns A promise resolving to the response containing the Stripe customer details.
  */
 export const createStripeCustomer =
-  async (): Promise<CreateStripeCustomerResponse> =>
-    api.post(`/stripe/customers/me`);
+  async (): Promise<CreateStripeCustomerResponse> => api.post(`/customers/me`);

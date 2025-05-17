@@ -122,7 +122,7 @@ const CardMethodActiveButton = ({
     queryFn: getStripeCustomer,
   });
 
-  const isActive = response?.data?.invoice.defaultPaymentMethod === method.id;
+  const isActive = response?.data?.defaultPaymentMethodId == method.id;
 
   const updateDefaultPaymentMethodMutation = useMutation({
     mutationFn: () => updateDefaultPaymentMethod(method.id),

@@ -28,7 +28,7 @@ const fields = ["fullName", "phone", "grade"];
 // Object with properties containing empty strings
 const initialInputsState = Object.fromEntries(
   fields.map((field) => [field, ""])
-) as Record<(typeof fields)[number], string>;
+);
 
 // Object with properties containing empty arrays
 const initialErrorsState = initialInputsState;
@@ -47,7 +47,8 @@ export const CheckoutForm = ({ product }: CheckoutFormOptions) => {
 
   // API
   const createCustomerSubscriptionMutation = useMutation({
-    mutationFn: () => createCustomerSubscription(priceId),
+    mutationFn: () =>
+      createCustomerSubscription([{ price: priceId, quantity: 1 }]),
     onSuccess: () => {
       setInvoicePaidDialogOpen(true);
     },

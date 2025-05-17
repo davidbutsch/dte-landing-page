@@ -16,7 +16,7 @@ export const getStripeCustomer =
   async (): Promise<GetStripeCustomerResponse> => {
     try {
       // try to fetch customer
-      return await api.get(`/stripe/customers/me`);
+      return await api.get(`/customers/me`);
     } catch (error) {
       // if customer not found, create new customer
       if (error instanceof AxiosError && error.status == 404)

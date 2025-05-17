@@ -12,7 +12,7 @@ export type UpdateStripeCustomerResponse = AxiosResponse<Customer>;
 export const updateDefaultPaymentMethod = async (
   paymentMethodId: string
 ): Promise<UpdateStripeCustomerResponse> =>
-  api.patch(`/stripe/customers/me/`, {
+  api.patch(`/customers/me/`, {
     invoice_settings: {
       default_payment_method: paymentMethodId,
     },
