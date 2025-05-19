@@ -18,7 +18,7 @@ export const ProductCardFeatures = ({
             color="success"
             className="material-symbols-outlined"
           >
-            check
+            check_circle
           </Icon>
           <ListItemText primary={feature} />
         </ListItem>
