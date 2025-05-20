@@ -1,6 +1,7 @@
 import { USER_UNAUTHENTICATED_ERROR } from "@/common";
 import { openErrorDialog } from "@/components";
 import { User } from "@/modules/auth/types";
+import { getStripeCustomer } from "@/modules/stripe";
 import { fetchUserAttributes, getCurrentUser } from "@aws-amplify/auth";
 import { create } from "zustand";
 
@@ -31,6 +32,9 @@ export const storeUser = async (): Promise<void> => {
     const userAttributes = await fetchUserAttributes();
 
     const user = { ...userAuthDetails, attributes: userAttributes };
+
+    // Get stripe customer (or create one if does not exist)
+    getStripeCustomer();
 
     useAuthStore.getState().setUser(user); // Store user if authenticated
   } catch (error) {
