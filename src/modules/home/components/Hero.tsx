@@ -6,28 +6,29 @@ import {
   Icon,
   Stack,
   Typography,
-  alpha,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
     <Container>
-      <Grid2 container spacing={6} alignItems="center">
-        <Grid2 size={{ xs: 6 }}>
+      <Grid2 container spacing={12} alignItems="center">
+        <Grid2 size={{ xs: 7 }}>
           <Typography
-            variant="h2"
+            variant="h1"
+            fontFamily="Lobster"
             sx={{
-              strong: {
+              span: {
                 overflow: "visible",
                 position: "relative",
+
                 "&::after": {
                   content: '""',
                   position: "absolute",
                   top: 0,
                   left: 0,
                   right: 0,
-                  bottom: "-2.5rem",
+                  bottom: "-4rem",
 
                   // Position the line behind the text so that
                   // it is still easily readable
@@ -42,9 +43,9 @@ export const Hero = () => {
               },
             }}
           >
-            Youth Basketball <strong>Reimagined</strong>
+            Youth Basketball <span>Reimagined</span>
           </Typography>
-          <Stack mt={12} direction="row" gap={2}>
+          <Stack mt={16} direction="row" gap={2}>
             <Link to={"/products"}>
               <Button
                 size="large"
@@ -68,24 +69,17 @@ export const Hero = () => {
                 <Icon className="material-symbols-outlined">attach_money</Icon>
               }
             >
-              Free Trial
+              Free Practice
             </Button>
           </Stack>
         </Grid2>
-        <Grid2 size={{ xs: 6 }}>
+        <Grid2 size={{ xs: 5 }}>
           <Box
-            component={"video"}
-            src="/hero.mp4"
-            autoPlay
-            loop
-            muted
+            component={"img"}
+            src="/jersey.png"
             sx={{
+              transform: "rotate(15deg)",
               width: "100%",
-              overflow: "hidden",
-              borderRadius: "16px",
-              outline: (theme) =>
-                `16px solid ${alpha(theme.palette.secondary.light, 0.5)}`,
-              bgcolor: (theme) => alpha(theme.palette.secondary.light, 0.5),
             }}
           />
         </Grid2>
