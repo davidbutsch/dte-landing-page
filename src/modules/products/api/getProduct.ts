@@ -1,5 +1,5 @@
 import { api } from "@/libs";
-import { Product } from "@/modules/stripe/types";
+import { Product } from "@/modules/products";
 import { AxiosResponse } from "axios";
 
 export type GetProductResponse = AxiosResponse<Product>;
