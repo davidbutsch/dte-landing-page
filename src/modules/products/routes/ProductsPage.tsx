@@ -1,10 +1,17 @@
 import { ProductCards } from "@/modules/products/components";
-import { Stack } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 
 export const ProductsPage = () => {
   return (
-    <Stack pt={10} direction="column" gap={15}>
-      <ProductCards />
-    </Stack>
+    <Container>
+      <Stack pt={10} direction="column" gap={15}>
+        <Stack alignItems="center" textAlign="center">
+          <Typography variant="h2" fontFamily="Lobster" gutterBottom>
+            Pricing & Plans
+          </Typography>
+        </Stack>
+        <ProductCards />
+      </Stack>
+    </Container>
   );
 };
