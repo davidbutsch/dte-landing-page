@@ -1,6 +1,6 @@
 import { LoadingWrapper } from "@/components";
 import { getProducts } from "@/modules/products";
-import { Container, Grid2 } from "@mui/material";
+import { Fade, Grid2 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { ProductCard } from "./ProductCard";
 
@@ -12,13 +12,13 @@ export const ProductCards = () => {
 
   return (
     <LoadingWrapper isLoading={isLoading}>
-      <Container>
+      <Fade in={!isLoading}>
         <Grid2 container spacing={2}>
           {response?.data.map((product) => (
             <ProductCard product={product} key={product.id} />
           ))}
         </Grid2>
-      </Container>
+      </Fade>
     </LoadingWrapper>
   );
 };

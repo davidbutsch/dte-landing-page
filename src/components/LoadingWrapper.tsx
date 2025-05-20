@@ -16,7 +16,7 @@ export const LoadingWrapper = ({
   children,
 }: LoadingWrapperOptions) => {
   return (
-    <>
+    <Box>
       <Fade in={isLoading}>
         <Box
           sx={{
@@ -35,17 +35,7 @@ export const LoadingWrapper = ({
           <CircularProgress sx={{ width: 100 }} />
         </Box>
       </Fade>
-      {!isLoading && (
-        <Fade in={!isLoading}>
-          <Box
-            sx={{
-              display: isLoading ? "none" : "block",
-            }}
-          >
-            {children}
-          </Box>
-        </Fade>
-      )}
-    </>
+      {children}
+    </Box>
   );
 };

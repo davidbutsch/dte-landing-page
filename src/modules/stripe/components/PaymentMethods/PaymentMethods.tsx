@@ -1,4 +1,4 @@
-import { openErrorDialog } from "@/components";
+import { LoadingWrapper, openErrorDialog } from "@/components";
 import {
   CardCheck,
   CardIcon,
@@ -11,6 +11,7 @@ import {
   Button,
   Collapse,
   Divider,
+  Fade,
   Icon,
   IconButton,
   List,
@@ -255,23 +256,33 @@ const CardMethod = ({ method }: CardMethodOptions) => {
 };
 
 export const PaymentMethods = () => {
-  const { data: response } = useQuery({
+  const { data: response, isLoading } = useQuery({
     queryKey: ["paymentMethods"],
     queryFn: () => getPaymentMethods(),
   });
 
   return (
-    <List dense disablePadding>
-      {response?.data.map((method, index) => {
-        return (
-          <React.Fragment key={method.id}>
-            <CardMethod method={method} />
-            {index < response.data.length - 1 && ( // only display divider if not last item
-              <Divider variant="inset" />
-            )}
-          </React.Fragment>
-        );
-      })}
+    <List dense disablePadding sx={{ position: "relative" }}>
+      <LoadingWrapper isLoading={isLoading}>
+        <Fade in={!isLoading} timeout={500}>
+          <div>
+            <Collapse in={!isLoading} timeout={500}>
+              <div>
+                {response?.data.map((method, index) => {
+                  return (
+                    <React.Fragment key={method.id}>
+                      <CardMethod method={method} />
+                      {index < response.data.length - 1 && ( // only display divider if not last item
+                        <Divider variant="inset" />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </div>
+            </Collapse>
+          </div>
+        </Fade>
+      </LoadingWrapper>
     </List>
   );
 };
