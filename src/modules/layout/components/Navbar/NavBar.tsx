@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 const pages = [
   { name: "Home", to: "/" },
   { name: "Events", to: "/events" },
-  { name: "Services", to: "/products" },
+  { name: "Plans", to: "/products" },
   { name: "Teams", to: "/teams" },
   { name: "Coaches", to: "/staff" },
 ];
