@@ -10,6 +10,7 @@ import {
   DialogTitle,
   FormControl,
   FormLabel,
+  Grid2,
   ListItemIcon,
   MenuItem,
   Stack,
@@ -45,6 +46,7 @@ export const EditProfileMenuItem = () => {
   const initialInputs = {
     givenName: user?.attributes.given_name,
     familyName: user.attributes.family_name,
+    phoneNumber: user.attributes.phone_number,
   };
 
   // STATE
@@ -81,10 +83,14 @@ export const EditProfileMenuItem = () => {
     const isInputsValid = validateInputs();
     if (!isInputsValid) return;
 
+    if (!inputs.phoneNumber?.startsWith("+"))
+      inputs.phoneNumber = `+${inputs.phoneNumber}`;
+
     updateUserAttributesMutation.mutate({
       userAttributes: {
         given_name: inputs.givenName,
         family_name: inputs.familyName,
+        phone_number: inputs.phoneNumber,
       },
     });
   };
@@ -106,6 +112,7 @@ export const EditProfileMenuItem = () => {
     const errors = ProfileDetailsSchema.safeParse({
       givenName: inputs.givenName,
       familyName: inputs.familyName,
+      phoneNumber: inputs.phoneNumber,
     }).error?.flatten().fieldErrors;
 
     // Cast as any because I don't want to figure out these typing issues
@@ -115,6 +122,7 @@ export const EditProfileMenuItem = () => {
     setErrors((current) => ({
       givenName: unsafeErrors?.givenName?.join(", ") || current.givenName,
       familyName: unsafeErrors?.familyName?.join(", ") || current.familyName,
+      phoneNumber: unsafeErrors?.phoneNumber?.join(", ") || current.phoneNumber,
     }));
 
     // Return true if no errors
@@ -149,39 +157,65 @@ export const EditProfileMenuItem = () => {
         <DialogTitle>Edit Profile</DialogTitle>
         <DialogContent>
           <Stack gap={2}>
-            <FormControl>
-              <FormLabel htmlFor="givenName" required>
-                First Name
-              </FormLabel>
-              <TextField
-                error={!!errors.givenName}
-                helperText={errors.givenName}
-                value={inputs.givenName}
-                onChange={onInputChange}
-                id="givenName"
-                type="text"
-                name="givenName"
-                placeholder="John"
-                autoComplete="given-name"
-                required
-                fullWidth
-                variant="outlined"
-              />
-            </FormControl>
+            <Grid2 container spacing={2}>
+              <Grid2 size={{ xs: 6 }}>
+                <FormControl fullWidth>
+                  <FormLabel htmlFor="givenName" required>
+                    First Name
+                  </FormLabel>
+                  <TextField
+                    error={!!errors.givenName}
+                    helperText={errors.givenName}
+                    value={inputs.givenName}
+                    onChange={onInputChange}
+                    id="givenName"
+                    type="text"
+                    name="givenName"
+                    placeholder="John"
+                    autoComplete="given-name"
+                    required
+                    fullWidth
+                    variant="outlined"
+                  />
+                </FormControl>
+              </Grid2>
+              <Grid2 size={{ xs: 6 }}>
+                <FormControl fullWidth>
+                  <FormLabel htmlFor="familyName" required>
+                    Last Name
+                  </FormLabel>
+                  <TextField
+                    error={!!errors.familyName}
+                    helperText={errors.familyName}
+                    value={inputs.familyName}
+                    onChange={onInputChange}
+                    id="familyName"
+                    type="text"
+                    name="familyName"
+                    placeholder="Doe"
+                    autoComplete="family-name"
+                    required
+                    fullWidth
+                    variant="outlined"
+                  />
+                </FormControl>
+              </Grid2>
+            </Grid2>
+
             <FormControl>
               <FormLabel htmlFor="familyName" required>
-                Last Name
+                Phone Number
               </FormLabel>
               <TextField
-                error={!!errors.familyName}
-                helperText={errors.familyName}
-                value={inputs.familyName}
+                error={!!errors.phoneNumber}
+                helperText={errors.phoneNumber}
+                value={inputs.phoneNumber}
                 onChange={onInputChange}
-                id="familyName"
+                id="phoneNumber"
                 type="text"
-                name="familyName"
-                placeholder="Doe"
-                autoComplete="family-name"
+                name="phoneNumber"
+                placeholder="(123) 456-7890"
+                autoComplete="tel"
                 required
                 fullWidth
                 variant="outlined"
