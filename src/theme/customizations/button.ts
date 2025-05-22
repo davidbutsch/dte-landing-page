@@ -76,7 +76,6 @@ export const buttonCustomizations: Components<Theme> = {
   MuiIconButton: {
     styleOverrides: {
       root: {
-        padding: 0,
         transition: "0s", // no animation transition
         borderRadius: 0,
 

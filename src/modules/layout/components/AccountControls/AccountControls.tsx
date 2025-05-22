@@ -47,7 +47,7 @@ export const AccountControls = () => {
       <IconButton
         onClick={handleMenuOpen}
         size="small"
-        sx={{ ml: "auto" }}
+        sx={{ ml: "auto", padding: 0 }}
         aria-controls={open ? "account-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
@@ -85,34 +85,28 @@ export const AccountControls = () => {
             alignItems: "center",
           }}
         >
-          {/* Icon button that doesn't do anything (maybe a profile picture?) */}
-          <IconButton
-            size="small"
-            sx={{ cursor: "default" }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
+          <Avatar
+            variant="rounded"
+            sx={{
+              height: "64px",
+              width: "64px",
+
+              bgcolor: theme.palette.primary.main,
+              color: "#fff",
+
+              outline: "1px solid #000",
+
+              fontSize: 34,
+            }}
           >
-            <Avatar
-              variant="rounded"
-              sx={{
-                bgcolor: theme.palette.primary.main,
-                color: "#fff",
-                height: "64px",
-                width: "64px",
-                fontSize: 34,
-              }}
-            >
-              {user.attributes.given_name?.[0]}
-            </Avatar>
-          </IconButton>
+            {user.attributes.given_name?.[0]}
+          </Avatar>
 
           {/* Menu Items */}
           <Stack ml={2} justifyContent="center">
             <Typography variant="body1" fontWeight={600}>
               {user.attributes.given_name} {user.attributes.family_name}
             </Typography>
-
             <Typography variant="body2" color="textSecondary">
               {user.attributes.email}
             </Typography>
