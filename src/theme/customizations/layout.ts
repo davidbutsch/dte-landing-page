@@ -9,4 +9,12 @@ export const layoutCustomizations: Components<Theme> = {
       },
     },
   },
+  MuiCardActions: {
+    styleOverrides: {
+      root: {
+        padding: 2 * 8,
+        paddingTop: 0,
+      },
+    },
+  },
 };
