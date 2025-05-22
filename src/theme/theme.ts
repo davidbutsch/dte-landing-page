@@ -3,6 +3,7 @@ import {
   buttonCustomizations,
   dialogCustomizations,
   inputCustomizations,
+  layoutCustomizations,
   menuCustomizations,
   miscCustomizations,
 } from "./customizations";
@@ -20,5 +21,6 @@ export const theme = createTheme({
     ...menuCustomizations,
     ...miscCustomizations,
     ...dialogCustomizations,
+    ...layoutCustomizations,
   },
 });
