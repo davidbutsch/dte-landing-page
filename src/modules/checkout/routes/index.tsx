@@ -3,17 +3,16 @@ import { Outlet, RouteObject } from "react-router-dom";
 import { CheckoutPage } from "./CheckoutPage";
 import { RedirectPage } from "./RedirectPage";
 
-export const stripeRoutes: RouteObject[] = [
+export const checkoutRoutes: RouteObject[] = [
   {
     element: (
       <AppLayout>
         <Outlet />
       </AppLayout>
     ),
-    path: "/stripe/",
     children: [
-      { path: "/stripe/redirect/", element: <RedirectPage /> },
-      { path: "/stripe/checkout/", element: <CheckoutPage /> },
+      { path: "/checkout/", element: <CheckoutPage /> },
+      { path: "/checkout/redirect", element: <RedirectPage /> },
     ],
   },
 ];

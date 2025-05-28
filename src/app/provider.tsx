@@ -1,10 +1,12 @@
-import { ErrorDialog } from "@/components";
+import { ErrorDialog, InfoDialog } from "@/components";
 import { queryClient } from "@/libs";
 import { ThemeProvider } from "@/theme";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "sonner";
+import { QueryParamProvider } from "use-query-params";
+import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -13,15 +15,25 @@ type AppProviderProps = {
 export const AppProvider = ({ children }: AppProviderProps): JSX.Element => {
   return (
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
-        <ThemeProvider>
-          {/* Reusable Components */}
-          <Toaster />
-          <ErrorDialog />
-          {children}
-        </ThemeProvider>
-      </QueryClientProvider>
+      <QueryParamProvider
+        adapter={ReactRouter6Adapter}
+        options={{
+          includeAllParams: true,
+          params: {},
+          updateType: "replaceIn",
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools />
+          <ThemeProvider>
+            {/* Reusable Components */}
+            <Toaster />
+            <ErrorDialog />
+            <InfoDialog />
+            {children}
+          </ThemeProvider>
+        </QueryClientProvider>
+      </QueryParamProvider>
     </BrowserRouter>
   );
 };
