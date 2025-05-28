@@ -69,19 +69,33 @@ export const CheckoutStepper = () => {
     }
 
     // Payment step -> Finished ... create subscription on click
-    if (step == 1 && priceId && players)
-      return createCustomerSubscriptionMutation.mutate([
-        {
-          price: priceId,
-          quantity: players.length,
-          discounts: [
-            {
-              // The coupon id is actually a promotion id... lol
-              promotion_code: coupon?.id,
-            },
-          ],
-        },
-      ]);
+    if (step == 1 && priceId && players) {
+      const playerEntries = players.map((player, i) => {
+        return [
+          `player${i + 1}`,
+          `${player.name}, ${player.grade}${
+            player.grade == "Kindergarten" ? "" : " grade"
+          }`,
+        ];
+      });
+
+      const playersObject = Object.fromEntries(playerEntries);
+      return createCustomerSubscriptionMutation.mutate({
+        items: [
+          {
+            price: priceId,
+            quantity: players.length,
+            discounts: [
+              {
+                // The coupon id is actually a promotion id... lol
+                promotion_code: coupon?.id,
+              },
+            ],
+          },
+        ],
+        metadata: { ...playersObject },
+      });
+    }
 
     if (step)
       // Increment step by 1 if query parameter 'step' exists
