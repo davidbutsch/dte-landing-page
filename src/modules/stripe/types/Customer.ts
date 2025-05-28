@@ -4,4 +4,5 @@ export type Customer = {
   email: string;
   defaultPaymentMethodId: string | null;
   name: string | null;
+  metadata?: Record<string, string>;
 };
