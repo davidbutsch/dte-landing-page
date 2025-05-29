@@ -26,11 +26,11 @@ export const ProductCard = ({ product }: ProductCardOptions) => {
               }}
             />
           )}
-          <Typography variant="h5" fontWeight={600}>
+          <Typography variant="h4" fontWeight={600}>
             {product.name}
           </Typography>
           {/* TODO */}
-          <Typography>{product.defaultPriceId}</Typography>
+          <Typography variant="h6">{product?.metadata?.priceLabel}</Typography>
         </Stack>
 
         <ProductCardCTA productId={product.id} />
