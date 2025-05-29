@@ -2,6 +2,7 @@ import { LoadingWrapper, openErrorDialog } from "@/components";
 import {
   CardCheck,
   CardIcon,
+  DeleteCardMethodButton,
   PaymentMethod,
   getPaymentMethods,
   getStripeCustomer,
@@ -188,6 +189,7 @@ const CardMethod = ({ method }: CardMethodOptions) => {
               method={method}
               visible={isSetActiveButtonVisible || open}
             />
+            <DeleteCardMethodButton method={method} />
             <IconButton
               onClick={onClick}
               sx={{
@@ -240,14 +242,10 @@ const CardMethod = ({ method }: CardMethodOptions) => {
             value={<CardCheckLogo condition={method.card.checks.cvc} />}
           />
           <CardMethodSubListItem
-            label="Zip check"
+            label="ZIP check"
             value={
               <CardCheckLogo condition={method.card.checks.addressPostalCode} />
             }
-          />
-          <CardMethodSubListItem
-            label="Address line check"
-            value={<CardCheckLogo condition={method.card.checks.addressLine} />}
           />
         </List>
       </Collapse>

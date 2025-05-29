@@ -4,6 +4,7 @@ import {
   QueryCoupon,
   QueryPlayer,
 } from "@/modules/checkout";
+import { getStripeCustomer } from "@/modules/stripe";
 import {
   Button,
   Stack,
@@ -12,7 +13,7 @@ import {
   StepLabel,
   Stepper,
 } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -52,17 +53,17 @@ export const CheckoutStepper = () => {
     },
   });
 
+  const { data: response } = useQuery({
+    queryKey: ["customer", "me"],
+    queryFn: getStripeCustomer,
+  });
+  const customer = response?.data;
+
   // METHODS
 
   const handleNext = () => {
     // Information step -> Payment step
     if (step == 0) {
-      // Validate that all player fields are populated
-      if (!players) return openErrorDialog({ text: "Missing player data" });
-      let isValid = true;
-
-      if (!isValid) return;
-
       // Temporarily disable payment button to prevent misclicks when going to payment step
       setIsPaymentDisabled(true);
       setTimeout(() => setIsPaymentDisabled(false), 3000);
@@ -70,6 +71,13 @@ export const CheckoutStepper = () => {
 
     // Payment step -> Finished ... create subscription on click
     if (step == 1 && priceId && players) {
+      // Validate that a default payment method exists
+      if (!customer?.defaultPaymentMethodId)
+        return openErrorDialog({
+          title: "Missing details",
+          text: "No payment method selected.",
+        });
+
       const playerEntries = players.map((player, i) => {
         return [
           `player${i + 1}`,

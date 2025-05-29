@@ -112,6 +112,7 @@ export const AddPaymentMethod = () => {
     queryKey: ["setupIntent"],
     queryFn: () => createSetupIntent(),
   });
+  const setupIntent = response?.data;
 
   // STATE
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -120,7 +121,7 @@ export const AddPaymentMethod = () => {
   const onDialogOpen = () => setDialogOpen(true);
   const onDialogClose = () => setDialogOpen(false);
 
-  if (response?.data.clientSecret)
+  if (setupIntent)
     return (
       <>
         <Button
