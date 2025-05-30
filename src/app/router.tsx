@@ -1,6 +1,7 @@
 import { useRoutes } from "react-router-dom";
 
 import { authRoutes } from "@/modules/auth";
+import { calendarRoutes } from "@/modules/calendar";
 import { checkoutRoutes } from "@/modules/checkout/routes";
 import { homeRoutes } from "@/modules/home";
 import { WaitForAuth } from "@/modules/layout";
@@ -32,6 +33,10 @@ export const routes: RouteObject[] = [
       {
         path: "/checkout/",
         children: checkoutRoutes,
+      },
+      {
+        path: "/calendar/",
+        children: calendarRoutes,
       },
     ],
   },

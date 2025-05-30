@@ -6,10 +6,9 @@ import { Link, useLocation } from "react-router-dom";
 
 const pages = [
   { name: "Home", to: "/" },
-  { name: "Events", to: "/events" },
   { name: "Plans", to: "/products" },
-  { name: "Teams", to: "/teams" },
-  { name: "Coaches", to: "/staff" },
+  { name: "Image Gallery", to: "/gallery" },
+  { name: "Calendar", to: "/calendar" },
 ];
 
 // If user is logged in displays account controls, otherwise displays log in options
