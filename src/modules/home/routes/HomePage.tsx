@@ -1,4 +1,4 @@
-import { GalleryPreview, Hero } from "@/modules/home";
+import { Coaches, GalleryPreview, Hero } from "@/modules/home";
 import { Stack } from "@mui/material";
 
 export const HomePage = () => {
@@ -6,6 +6,7 @@ export const HomePage = () => {
     <Stack pt={10} pb={50} direction="column" gap={20}>
       <Hero />
       <GalleryPreview />
+      <Coaches />
     </Stack>
   );
 };
