@@ -1,5 +1,5 @@
 import { theme } from "@/theme";
-import { Card, Container, Divider, Stack, useMediaQuery } from "@mui/material";
+import { Container, Divider, Paper, Stack, useMediaQuery } from "@mui/material";
 import { CopyrightTypography } from "./CopyrightTypography";
 import { Links } from "./Links";
 import { Logo } from "./Logo";
@@ -8,8 +8,9 @@ export const Footer = () => {
   const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Card
+    <Paper
       variant="outlined"
+      component="footer"
       sx={{
         mt: 30,
         p: 5,
@@ -28,6 +29,6 @@ export const Footer = () => {
           </Stack>
         </Stack>
       </Container>
-    </Card>
+    </Paper>
   );
 };
