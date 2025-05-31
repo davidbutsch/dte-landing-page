@@ -150,7 +150,7 @@ export const SignUpForm = () => {
               given_name: inputs.firstName,
               family_name: inputs.lastName,
               // TODO integrate with zod
-              phone_number: normalizePhoneNumber(inputs.phoneNumber),
+              phone_number: normalizePhoneNumber(inputs.phoneNumber) || "",
             },
           },
         });

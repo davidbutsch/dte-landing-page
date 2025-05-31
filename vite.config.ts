@@ -18,4 +18,7 @@ export default defineConfig({
   define: {
     global: {},
   },
+  build: {
+    target: "esnext", //browsers can handle the latest ES features
+  },
 });
