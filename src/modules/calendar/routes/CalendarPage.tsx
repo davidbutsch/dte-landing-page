@@ -1,4 +1,5 @@
 import { getStripeCustomer } from "@/modules/stripe";
+import { palette } from "@/theme/palette";
 import {
   Button,
   Container,
@@ -64,8 +65,9 @@ export const CalendarPage = () => {
         height="100%"
         style={{
           border: "none",
-          outline: "2px #000 solid",
-          borderRadius: "8px",
+          boxShadow: `
+          -4px -4px 0px 4px ${palette.secondary.main},
+          4px 4px 0px 4px ${palette.primary.main}`,
         }}
       ></iframe>
     </Container>
