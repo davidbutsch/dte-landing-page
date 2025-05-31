@@ -1,5 +1,6 @@
 import {
   INVALID_VERIFICATION_CODE_ERROR,
+  normalizePhoneNumber,
   USERNAME_EXISTS_ERROR,
 } from "@/common";
 import { FieldErrorList, openErrorDialog } from "@/components";
@@ -36,6 +37,7 @@ const StepButton = styled(Button)(() => ({
 
 const fields = [
   "email",
+  "phoneNumber",
   "firstName",
   "lastName",
   "password",
@@ -147,6 +149,8 @@ export const SignUpForm = () => {
             userAttributes: {
               given_name: inputs.firstName,
               family_name: inputs.lastName,
+              // TODO integrate with zod
+              phone_number: normalizePhoneNumber(inputs.phoneNumber),
             },
           },
         });
@@ -175,6 +179,7 @@ export const SignUpForm = () => {
     const stepData = [
       {
         email: inputs.email,
+        phoneNumber: inputs.phoneNumber,
         firstName: inputs.firstName,
         lastName: inputs.lastName,
       },
@@ -198,6 +203,7 @@ export const SignUpForm = () => {
     // Updates the error message for each input field
     setErrors((current) => ({
       email: unsafeErrors?.email || current.email,
+      phoneNumber: unsafeErrors?.phoneNumber || current.phoneNumber,
       firstName: unsafeErrors?.firstName || current.firstName,
       lastName: unsafeErrors?.lastName || current.lastName,
       password: unsafeErrors?.password || current.password,
@@ -243,6 +249,26 @@ export const SignUpForm = () => {
               name="email"
               placeholder="your@email.com"
               autoComplete="email"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="phoneNumber" required>
+              Phone Number
+            </FormLabel>
+            <TextField
+              error={!!errors.phoneNumber}
+              helperText={<FieldErrorList errors={errors.phoneNumber} />}
+              value={inputs.phoneNumber}
+              onChange={onChange}
+              id="phoneNumber"
+              type="tel"
+              name="phoneNumber"
+              placeholder="(123) 456-7890"
+              autoComplete="tel"
               autoFocus
               required
               fullWidth

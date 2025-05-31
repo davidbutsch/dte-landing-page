@@ -23,6 +23,7 @@
     "aws-amplify": "^6.13.6",
     "axios": "^1.8.4",
     "i": "^0.3.7",
+    "libphonenumber-js": "^1.12.8",
     "npm": "^11.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
