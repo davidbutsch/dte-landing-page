@@ -3,6 +3,7 @@ import { useRoutes } from "react-router-dom";
 import { authRoutes } from "@/modules/auth";
 import { calendarRoutes } from "@/modules/calendar";
 import { checkoutRoutes } from "@/modules/checkout/routes";
+import { dashboardRoutes } from "@/modules/dashboard";
 import { galleryRoutes } from "@/modules/gallery";
 import { homeRoutes } from "@/modules/home";
 import { WaitForAuth } from "@/modules/layout";
@@ -42,6 +43,10 @@ export const routes: RouteObject[] = [
       {
         path: "/calendar/",
         children: calendarRoutes,
+      },
+      {
+        path: "/dashboard/",
+        children: dashboardRoutes,
       },
     ],
   },

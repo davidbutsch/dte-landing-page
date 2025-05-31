@@ -1,4 +1,5 @@
 import { EditProfileMenuItem, useAuthStore } from "@/modules/auth";
+import { DashboardMenuItem } from "@/modules/dashboard";
 import { BillingDetailsMenuItem } from "@/modules/stripe";
 import { theme } from "@/theme";
 import {
@@ -114,6 +115,7 @@ export const AccountControls = () => {
         </Stack>
         <EditProfileMenuItem />
         <BillingDetailsMenuItem />
+        {user.attributes["custom:role"] == "admin" && <DashboardMenuItem />}
         <Divider />
         <LogOutMenuItem />
       </Menu>
