@@ -45,7 +45,7 @@ export const Images = () => {
         gap={isMediumScreenSize ? 20 : 30}
         variant="masonry"
         dir="row"
-        cols={isMediumScreenSize ? 2 : 2}
+        cols={isMediumScreenSize ? 2 : 3}
       >
         {paths?.map((path, i) => (
           <ImageListItem key={`${path}-${i}`}>

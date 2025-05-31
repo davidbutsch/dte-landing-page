@@ -189,7 +189,7 @@ const Banner = () => {
           variant="subtitle2"
           textAlign="center"
         >
-          Limited Time: 5% Off for All Customers — Ends June 3rd
+          5% Off for All Customers — Ends June 3rd
         </Typography>
         <Link
           to={
