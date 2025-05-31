@@ -5,6 +5,7 @@ export type FieldErrorListOptions = {
   errors: string[];
 };
 
+// TODO Redo form errors as lists are not supported form helper texts
 export const FieldErrorList = ({ errors }: FieldErrorListOptions) => {
   return (
     <List
@@ -18,8 +19,10 @@ export const FieldErrorList = ({ errors }: FieldErrorListOptions) => {
         },
       }}
     >
-      {errors.map((error) => (
-        <ListItem disablePadding>{error}</ListItem>
+      {errors?.map((error) => (
+        <ListItem key={error} disablePadding>
+          {error}
+        </ListItem>
       ))}
     </List>
   );
