@@ -1,2 +1,1 @@
 export * from "./GalleryPreview";
-export * from "./Hero";
