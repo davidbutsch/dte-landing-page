@@ -1,8 +1,11 @@
 import { getPaginatedGalleryFilePaths } from "@/modules/gallery";
-import { ImageList, ImageListItem } from "@mui/material";
+import { theme } from "@/theme";
+import { ImageList, ImageListItem, useMediaQuery } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 
 export const GalleryPreviewImageList = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   const getPaginatedGalleryFilePathsQuery = useQuery({
     queryKey: ["gallery", null],
     queryFn: () => getPaginatedGalleryFilePaths({ limit: 8 }),
@@ -18,7 +21,7 @@ export const GalleryPreviewImageList = () => {
       gap={30}
       variant="masonry"
       dir="row"
-      cols={3}
+      cols={isMediumScreenSize ? 2 : 3}
     >
       {paths?.map((path, i) => (
         <ImageListItem key={`${path}-${i}`}>

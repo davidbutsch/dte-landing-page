@@ -11,6 +11,7 @@ export const buttonCustomizations: Components<Theme> = {
     styleOverrides: {
       root: {
         flex: "none", // fix text wrapping issue
+        textWrap: "nowrap", // also fix text wrapping issue
         fontWeight: 600, // all buttons have bold text
 
         transition: "0s", // no animation transition

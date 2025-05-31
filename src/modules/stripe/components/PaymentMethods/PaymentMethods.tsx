@@ -8,6 +8,7 @@ import {
   getStripeCustomer,
   updateDefaultPaymentMethod,
 } from "@/modules/stripe";
+import { theme } from "@/theme";
 import {
   Button,
   Collapse,
@@ -21,6 +22,7 @@ import {
   ListItemText,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
@@ -171,6 +173,8 @@ type CardMethodOptions = {
 };
 
 const CardMethod = ({ method }: CardMethodOptions) => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   const [open, setOpen] = useState(false);
 
   const onClick = () => setOpen((prev) => !prev);
@@ -208,16 +212,19 @@ const CardMethod = ({ method }: CardMethodOptions) => {
         <ListItemIcon>
           <CardIcon brand={method.card.brand} width={40} />
         </ListItemIcon>
-        <ListItemText
-          primary={
-            <Typography fontWeight={600}>•••• {method.card.last4}</Typography>
-          }
-          secondary={
-            <Typography variant="subtitle2">
-              Expires {method.card.expires}
-            </Typography>
-          }
-        />
+        {/* TODO */}
+        {!isMediumScreenSize && (
+          <ListItemText
+            primary={
+              <Typography fontWeight={600}>•••• {method.card.last4}</Typography>
+            }
+            secondary={
+              <Typography variant="subtitle2">
+                Expires {method.card.expires}
+              </Typography>
+            }
+          />
+        )}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding sx={{ pb: 2 }}>

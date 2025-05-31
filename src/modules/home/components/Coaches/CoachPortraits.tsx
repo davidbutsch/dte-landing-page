@@ -24,6 +24,7 @@ export const CoachPortraits = () => {
     <Grid container spacing={2}>
       {coaches.map((coach) => (
         <CoachPortrait
+          key={coach.name}
           image={coach.image}
           name={coach.name}
           role={coach.role}

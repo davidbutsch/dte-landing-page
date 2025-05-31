@@ -1,3 +1,4 @@
+import { theme } from "@/theme";
 import {
   Box,
   Button,
@@ -6,16 +7,24 @@ import {
   Icon,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const Hero = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Container>
-      <Grid2 container spacing={12} alignItems="center">
+      <Grid2
+        container
+        spacing={isMediumScreenSize ? 5 : 12}
+        alignItems={isMediumScreenSize ? "baseline" : "center"}
+        direction={isMediumScreenSize ? "column" : "row"}
+      >
         <Grid2 size={{ xs: 7 }}>
           <Typography
-            variant="h1"
+            variant={isMediumScreenSize ? "h2" : "h1"}
             fontFamily="Lobster"
             sx={{
               span: {
@@ -45,7 +54,7 @@ export const Hero = () => {
           >
             Youth Basketball <span>Reimagined</span>
           </Typography>
-          <Stack mt={16} direction="row" gap={2}>
+          <Stack mt={isMediumScreenSize ? 14 : 16} direction="row" gap={2}>
             <Link to={"/products"}>
               <Button
                 size="large"
@@ -62,13 +71,17 @@ export const Hero = () => {
             </Link>
           </Stack>
         </Grid2>
-        <Grid2 size={{ xs: 5 }}>
+        <Grid2
+          size={{ xs: isMediumScreenSize ? 12 : 5 }}
+          display="flex"
+          justifyContent="center"
+        >
           <Box
             component={"img"}
             src="/jersey.png"
             sx={{
               transform: "rotate(15deg)",
-              width: "100%",
+              width: isMediumScreenSize ? "60vw" : "100%",
             }}
           />
         </Grid2>

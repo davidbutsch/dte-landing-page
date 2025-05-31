@@ -1,4 +1,5 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { theme } from "@/theme";
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 export type CoachPortraitProps = {
@@ -10,9 +11,14 @@ export type CoachPortraitProps = {
 export const CoachPortrait = (props: CoachPortraitProps) => {
   const { image, name, role } = props;
 
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Grid size={{ xs: 12 / 3 }}>
-      <Stack justifyContent="space-between" height="500px">
+    <Grid size={isMediumScreenSize ? 12 / 2 : 12 / 3}>
+      <Stack
+        justifyContent="space-between"
+        height={isMediumScreenSize ? "inherit" : "500px"}
+      >
         <Box
           sx={{
             objectFit: "cover",
@@ -26,10 +32,16 @@ export const CoachPortrait = (props: CoachPortraitProps) => {
           src={image}
         />
         <span>
-          <Typography variant="h6" fontWeight="bold">
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            mt={isMediumScreenSize ? 2 : 0}
+          >
             {name}
           </Typography>
-          <Typography variant="subtitle2">{role}</Typography>
+          <Typography variant="subtitle2" mb={isMediumScreenSize ? 2 : 0}>
+            {role}
+          </Typography>
         </span>
       </Stack>
     </Grid>

@@ -1,6 +1,7 @@
 import { DTE_LOGO_URL } from "@/common";
 import { useAuthStore } from "@/modules/auth";
 import { AccountControls } from "@/modules/layout";
+import { theme } from "@/theme";
 import { palette } from "@/theme/palette";
 import {
   AppBar,
@@ -8,10 +9,13 @@ import {
   Button,
   Card,
   Container,
+  Drawer,
   Icon,
+  IconButton,
   Stack,
   Toolbar,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -25,18 +29,28 @@ const pages = [
 
 // If user is logged in displays account controls, otherwise displays log in options
 const AuthenticationLinks = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   const { user } = useAuthStore();
 
   return (
-    <Stack direction="row" spacing={1} flex={1} justifyContent="end">
+    <Stack
+      direction="row"
+      spacing={1}
+      flex={1}
+      justifyContent="end"
+      alignItems="center"
+    >
       {user ? (
         <AccountControls />
       ) : (
         <>
           <Link to="/log-in">
-            <Button color="cream" variant="contained">
-              Log In
-            </Button>
+            {!isMediumScreenSize && (
+              <Button color="cream" variant="contained">
+                Log In
+              </Button>
+            )}
           </Link>
           <Link to="/sign-up">
             <Button color="primary" variant="contained">
@@ -50,8 +64,21 @@ const AuthenticationLinks = () => {
 };
 
 const Logo = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Box flex={1} display="flex" alignItems="center">
+    <Box
+      flex={1}
+      display="flex"
+      alignItems="center"
+      sx={{
+        ...(isMediumScreenSize
+          ? {
+              justifyContent: "center",
+            }
+          : {}),
+      }}
+    >
       <Link to="/" style={{ height: 32 }}>
         <img src={DTE_LOGO_URL} height={32} />
       </Link>
@@ -66,6 +93,50 @@ type NavigationLinksProps = {
 // Displays page links
 const NavigationLinks = ({ pages }: NavigationLinksProps) => {
   const location = useLocation();
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const openDrawer = () => setIsDrawerOpen(true);
+  const closeDrawer = () => setIsDrawerOpen(false);
+
+  if (isMediumScreenSize)
+    return (
+      <>
+        <Box flex={1}>
+          <IconButton onClick={openDrawer} size="small">
+            <Icon className="material-symbols-outlined" color="inherit">
+              menu
+            </Icon>
+          </IconButton>
+        </Box>
+        <Drawer open={isDrawerOpen} onClose={closeDrawer}>
+          <Typography variant="h4" fontFamily="Lobster" m={2}>
+            Navigation
+          </Typography>
+          <Stack direction="column" spacing={1.5} flex={1} m={2}>
+            {pages.map((page) => (
+              <Link to={page.to} key={page.to} onClick={closeDrawer}>
+                <Button
+                  color="cream"
+                  variant="contained"
+                  sx={{
+                    ...(location.pathname == page.to && {
+                      bgcolor: "cream.dark",
+                      transform: "translate(3px, 3px)",
+                      boxShadow: "none",
+                    }),
+                  }}
+                >
+                  {page.name}
+                </Button>
+              </Link>
+            ))}
+          </Stack>
+        </Drawer>
+      </>
+    );
+
   return (
     <Stack
       direction="row"
@@ -96,6 +167,8 @@ const NavigationLinks = ({ pages }: NavigationLinksProps) => {
 };
 
 const Banner = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Card
       sx={{
@@ -109,9 +182,13 @@ const Banner = () => {
         direction="row"
         alignItems="center"
         justifyContent="center"
-        gap={2}
+        gap={isMediumScreenSize ? 1 : 2}
       >
-        <Typography variant="subtitle2" textAlign="center">
+        <Typography
+          fontSize={isMediumScreenSize ? 12 : 14}
+          variant="subtitle2"
+          textAlign="center"
+        >
           Limited Time: 5% Off for All Customers — Ends June 3rd
         </Typography>
         <Link
@@ -135,6 +212,8 @@ const Banner = () => {
 };
 
 export const NavBar = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   const [offerExpired, setOfferExpired] = useState(false);
 
   useEffect(() => {
@@ -172,9 +251,19 @@ export const NavBar = () => {
           disableGutters
         >
           <Stack justifyContent="center" direction="row" width="100%">
-            <Logo />
-            <NavigationLinks pages={pages} />
-            <AuthenticationLinks />
+            {isMediumScreenSize ? (
+              <>
+                <NavigationLinks pages={pages} />
+                <Logo />
+                <AuthenticationLinks />
+              </>
+            ) : (
+              <>
+                <Logo />
+                <NavigationLinks pages={pages} />
+                <AuthenticationLinks />
+              </>
+            )}
           </Stack>
         </Toolbar>
       </Container>

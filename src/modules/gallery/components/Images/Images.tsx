@@ -2,16 +2,20 @@ import {
   getPaginatedGalleryFilePaths,
   GetPaginatedGalleryFilePathsResponse,
 } from "@/modules/gallery";
+import { theme } from "@/theme";
 import {
   Button,
   Container,
   ImageList,
   ImageListItem,
   Stack,
+  useMediaQuery,
 } from "@mui/material";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const Images = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   const getPaginatedGalleryFilePathsQuery = useInfiniteQuery({
     queryKey: ["gallery"],
     initialPageParam: null as GetPaginatedGalleryFilePathsResponse | null,
@@ -38,10 +42,10 @@ export const Images = () => {
     <Container>
       <ImageList
         sx={{ width: "100%", height: "100%", overflow: "visible", zIndex: -1 }}
-        gap={30}
+        gap={isMediumScreenSize ? 20 : 30}
         variant="masonry"
         dir="row"
-        cols={3}
+        cols={isMediumScreenSize ? 2 : 2}
       >
         {paths?.map((path, i) => (
           <ImageListItem key={`${path}-${i}`}>
