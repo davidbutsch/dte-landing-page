@@ -27,7 +27,7 @@ export const CalendarPage = () => {
   const handleSeePlans = () => navigate("/products");
 
   // Navigate to log in page if user is loaded and not logged in
-  if (customer && customer.metadata?.subscribed != "yes")
+  if (!customer || customer?.metadata?.subscribed != "yes")
     return (
       <Dialog open={true} onClose={handleBack}>
         <DialogTitle>Forbidden</DialogTitle>
