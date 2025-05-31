@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import { NavBar } from "./Navbar/NavBar";
+import { Footer } from "./Footer";
+import { NavBar } from "./Navbar";
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -22,9 +23,11 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
 
           zIndex: -1,
         }}
-      ></Box>
+      />
       <NavBar />
       {children}
+
+      <Footer />
     </>
   );
 };
