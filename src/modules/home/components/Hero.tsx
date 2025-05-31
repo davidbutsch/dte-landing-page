@@ -60,17 +60,6 @@ export const Hero = () => {
                 See Plans
               </Button>
             </Link>
-
-            <Button
-              size="large"
-              variant="contained"
-              color="secondary"
-              startIcon={
-                <Icon className="material-symbols-outlined">attach_money</Icon>
-              }
-            >
-              Free Practice
-            </Button>
           </Stack>
         </Grid2>
         <Grid2 size={{ xs: 5 }}>
