@@ -20,7 +20,7 @@ export const CoachesTypography = () => {
         variant="subtitle2"
         maxWidth={isMediumScreenSize ? "none" : "50%"}
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        For Athletes. By Athletes.
       </Typography>
     </Stack>
   );
