@@ -31,10 +31,8 @@ export const CalendarPage = () => {
 
   let isAuthorized = false;
 
-  if (!customer) return;
-
   // User is authorized if customer is subscribed to program
-  if (customer.metadata?.subscribed == "yes") isAuthorized = true;
+  if (customer?.metadata?.subscribed == "yes") isAuthorized = true;
   // User is authorized if user has admin role
   if (user?.attributes["custom:role"] == "admin") isAuthorized = true;
 
