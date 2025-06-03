@@ -5,6 +5,10 @@ export function formatTimeRange(
   startDate = new Date()
 ) {
   const { interval, intervalCount } = recurring;
+
+  // Set startDate to the first of the current month
+  startDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+
   const endDate = new Date(startDate);
 
   switch (interval) {
@@ -21,6 +25,9 @@ export function formatTimeRange(
       endDate.setFullYear(endDate.getFullYear() + intervalCount);
       break;
   }
+
+  // Ensure endDate is set to the first of the resulting month
+  endDate.setDate(1);
 
   const options: Intl.DateTimeFormatOptions = {
     month: "short",

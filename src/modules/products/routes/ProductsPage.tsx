@@ -1,4 +1,4 @@
-import { ProductCards } from "@/modules/products/components";
+import { Products } from "@/modules/products/components";
 import { Container, Stack, Typography } from "@mui/material";
 
 export const ProductsPage = () => {
@@ -10,7 +10,7 @@ export const ProductsPage = () => {
             Pricing & Plans
           </Typography>
         </Stack>
-        <ProductCards />
+        <Products />
       </Stack>
     </Container>
   );
