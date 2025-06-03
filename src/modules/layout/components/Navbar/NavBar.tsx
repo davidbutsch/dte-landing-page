@@ -189,11 +189,11 @@ const Banner = () => {
           variant="subtitle2"
           textAlign="center"
         >
-          5% Off for All Customers — Ends June 3rd
+          5% Off for All Customers — Ends June 6th
         </Typography>
         <Link
           to={
-            "/checkout/?productId=prod_SLgHWeqR767Qoy&priceId=price_1RRMjaR5ATxbPfKlLR8zHaSQ&step=0&coupon=%7B%22id%22%3A%22promo_1RUjTjR5ATxbPfKlfIK3Ky2Y%22%2C%22code%22%3A%22LOYALTY5%22%2C%22discount%22%3A%225%25+off+for+1+month%22%7D"
+            "/checkout/?productId=prod_SQDmPWPCtqjLMr&priceId=price_1RVNKqJKrmk8pDYtpts5Sp2Y&step=0&coupon=%7B%22id%22%3A%22promo_1RVcJaJKrmk8pDYtyqwqJckr%22%2C%22code%22%3A%22LOYALTY5%22%2C%22discount%22%3A%225%25+off%22%7D"
           }
         >
           <Button
