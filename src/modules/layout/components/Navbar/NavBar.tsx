@@ -219,7 +219,7 @@ export const NavBar = () => {
   useEffect(() => {
     const checkTime = () => {
       const now = new Date();
-      const targetTime = new Date("2025-06-03T10:00:00"); // Example target time
+      const targetTime = new Date("2025-06-06T10:00:00"); // Example target time
 
       if (now.getTime() > targetTime.getTime()) {
         setOfferExpired(true);

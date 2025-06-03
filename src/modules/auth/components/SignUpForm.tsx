@@ -366,7 +366,9 @@ export const SignUpForm = () => {
             </FormLabel>
             <TextField
               error={!!errors.code}
-              helperText={<FieldErrorList errors={errors.password} />}
+              helperText={
+                "If you do not recieve a confirmation code please navigate to the main page (clicking on the DTE icon) and reload. Thank you."
+              }
               value={inputs.code}
               onChange={onChange}
               id="code"
