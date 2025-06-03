@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/modules/auth";
 import { getStripeCustomer } from "@/modules/stripe";
 import { palette } from "@/theme/palette";
 import {
@@ -15,6 +16,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 export const CalendarPage = () => {
+  const { user } = useAuthStore();
+
   const { data: response } = useQuery({
     queryKey: ["customer", "me"],
     queryFn: getStripeCustomer,
@@ -26,10 +29,17 @@ export const CalendarPage = () => {
   const handleBack = () => navigate(-1);
   const handleSeePlans = () => navigate("/products");
 
+  let isAuthorized = false;
+
   if (!customer) return;
 
-  // Navigate to log in page if user is loaded and not logged in
-  if (customer.metadata?.subscribed != "yes")
+  // User is authorized if customer is subscribed to program
+  if (customer.metadata?.subscribed == "yes") isAuthorized = true;
+  // User is authorized if user has admin role
+  if (user?.attributes["custom:role"] == "admin") isAuthorized = true;
+
+  // Display forbidden dialog box if user is not authorized
+  if (!isAuthorized)
     return (
       <Dialog open={true} onClose={handleBack}>
         <DialogTitle>Forbidden</DialogTitle>
@@ -59,19 +69,20 @@ export const CalendarPage = () => {
         </DialogActions>
       </Dialog>
     );
-  return (
-    <Container sx={{ mt: 4, height: "80vh" }}>
-      <iframe
-        src="https://calendar.google.com/calendar/embed?src=dreamteamsportsgroup%40gmail.com&ctz=America%2FChicago&showTz=0&showCalendars=0&showPrint=0&showTitle=0"
-        width="100%"
-        height="100%"
-        style={{
-          border: "none",
-          boxShadow: `
+  else
+    return (
+      <Container sx={{ mt: 4, height: "80vh" }}>
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=dreamteamsportsgroup%40gmail.com&ctz=America%2FChicago&showTz=0&showCalendars=0&showPrint=0&showTitle=0"
+          width="100%"
+          height="100%"
+          style={{
+            border: "none",
+            boxShadow: `
           -4px -4px 0px 4px ${palette.secondary.main},
           4px 4px 0px 4px ${palette.primary.main}`,
-        }}
-      ></iframe>
-    </Container>
-  );
+          }}
+        ></iframe>
+      </Container>
+    );
 };
