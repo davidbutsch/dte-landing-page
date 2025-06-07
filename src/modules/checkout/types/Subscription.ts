@@ -9,6 +9,22 @@ export type SubscriptionItem = {
 };
 
 export type Subscription = {
+  id: string;
+  billingCycleAnchor: number;
+  cancelAt: number | null;
+  cancelAtPeriodEnd: boolean;
+  canceledAt: number | null;
+  customerId: string;
+  latestInvoiceId: string | null;
+  status:
+    | "active"
+    | "canceled"
+    | "incomplete"
+    | "incomplete_expired"
+    | "past_due"
+    | "paused"
+    | "trialing"
+    | "unpaid";
   items: SubscriptionItem[];
-  metadata?: Record<string, string>;
+  metadata: Record<string, string> | null;
 };

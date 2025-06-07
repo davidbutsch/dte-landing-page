@@ -16,7 +16,6 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   JsonParam,
   NumberParam,
@@ -29,8 +28,6 @@ import { InformationStep, PaymentStep } from "./Steps";
 const steps = ["Player Information", "Payment"];
 
 export const CheckoutStepper = () => {
-  const navigate = useNavigate();
-
   const [step, setStep] = useQueryParam("step", withDefault(NumberParam, 0));
   const [priceId] = useQueryParam("priceId", StringParam);
   const [coupon] = useQueryParam<QueryCoupon | undefined>("coupon", JsonParam);
@@ -44,7 +41,10 @@ export const CheckoutStepper = () => {
   // API
   const createCustomerSubscriptionMutation = useMutation({
     mutationFn: createCustomerSubscription,
-    onSuccess: () => navigate("/checkout/redirect"),
+    onSuccess: (data) => {
+      // Reload page and redirect to checkout (passing sub id)
+      window.location.href = `${window.origin}/checkout/redirect/?subscriptionId=${data.data.id}`;
+    },
 
     onError: (error) => {
       if (error instanceof AxiosError)
@@ -70,7 +70,7 @@ export const CheckoutStepper = () => {
     }
 
     // Payment step -> Finished ... create subscription on click
-    if (step == 1 && priceId && players) {
+    if (step == 1 && priceId) {
       // Validate that a default payment method exists
       if (!customer?.defaultPaymentMethodId)
         return openErrorDialog({
@@ -78,7 +78,7 @@ export const CheckoutStepper = () => {
           text: "No payment method selected.",
         });
 
-      const playerEntries = players.map((player, i) => {
+      const playerEntries = (players || []).map((player, i) => {
         return [
           `player${i + 1}`,
           `${player.name}, ${player.grade}${
@@ -92,7 +92,7 @@ export const CheckoutStepper = () => {
         items: [
           {
             price: priceId,
-            quantity: players.length,
+            quantity: players?.length || 1,
             discounts: [
               {
                 // The coupon id is actually a promotion id... lol
