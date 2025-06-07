@@ -1,4 +1,4 @@
-import { Products } from "@/modules/products/components";
+import { ProductCards } from "@/modules/products/components";
 import { Container, Stack, Typography } from "@mui/material";
 
 export const ProductsPage = () => {
@@ -7,10 +7,10 @@ export const ProductsPage = () => {
       <Stack pt={10} direction="column" gap={15}>
         <Stack alignItems="center" textAlign="center">
           <Typography variant="h2" fontFamily="Lobster" gutterBottom>
-            Pricing & Plans
+            Products & Plans
           </Typography>
         </Stack>
-        <Products />
+        <ProductCards />
       </Stack>
     </Container>
   );

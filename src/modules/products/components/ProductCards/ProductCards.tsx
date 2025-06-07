@@ -1,10 +1,10 @@
 import { LoadingWrapper } from "@/components";
 import { getProducts } from "@/modules/products";
-import { Fade, Grid2 } from "@mui/material";
+import { Fade, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { Product } from "./Product";
+import { ProductCard } from "./ProductCard";
 
-export const Products = () => {
+export const ProductCards = () => {
   const getProductsQuery = useQuery({
     queryKey: ["getProducts"],
     queryFn: getProducts,
@@ -14,11 +14,11 @@ export const Products = () => {
   return (
     <LoadingWrapper isLoading={getProductsQuery.isLoading}>
       <Fade in={!getProductsQuery.isLoading}>
-        <Grid2 container spacing={2}>
+        <Stack gap={20} alignItems="center">
           {products?.map((product) => (
-            <Product product={product} key={product.id} />
+              <ProductCard product={product} key={product.id} />
           ))}
-        </Grid2>
+        </Stack>
       </Fade>
     </LoadingWrapper>
   );
