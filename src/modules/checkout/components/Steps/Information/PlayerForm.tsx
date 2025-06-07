@@ -137,7 +137,7 @@ export const PlayerForm = (props: PlayerFormProps) => {
       <CardActions>
         <Button
           // Disable button if this player form is not last or if there is only one open player form
-          disabled={players.length == 1}
+          disabled={players.length == 1 || index != players.length - 1}
           size="small"
           variant="contained"
           startIcon={<Icon className="material-symbols-outlined">delete</Icon>}
