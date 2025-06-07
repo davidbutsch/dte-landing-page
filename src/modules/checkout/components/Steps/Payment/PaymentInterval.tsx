@@ -66,7 +66,7 @@ export const PaymentInterval = () => {
                 <FormControlLabel
                   value={price.id}
                   control={<Radio />}
-                  label={price.lookupKey}
+                  label={price.metadata?.title}
                 />
                 {price.metadata?.chip && (
                   <Chip label={price.metadata?.chip} size="small" />
