@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/modules/auth";
-import { getStripeCustomer } from "@/modules/stripe";
+import { getCustomerSubscriptions } from "@/modules/stripe";
 import { palette } from "@/theme/palette";
 import {
   Button,
@@ -16,13 +16,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 export const CalendarPage = () => {
-  const { user } = useAuthStore();
+  const { user, isUserLoading } = useAuthStore();
 
-  const { data: response } = useQuery({
-    queryKey: ["customer", "me"],
-    queryFn: getStripeCustomer,
+  const getCustomerSubscriptionsQuery = useQuery({
+    queryKey: ["subscriptions"],
+    queryFn: getCustomerSubscriptions,
   });
-  const customer = response?.data;
+  const subscriptions = getCustomerSubscriptionsQuery.data?.data || [];
+  const isAnySubscriptionActive = subscriptions.find(
+    (sub) => sub.status == "active"
+  );
 
   const navigate = useNavigate();
 
@@ -32,9 +35,11 @@ export const CalendarPage = () => {
   let isAuthorized = false;
 
   // User is authorized if customer is subscribed to program
-  if (customer?.metadata?.subscribed == "yes") isAuthorized = true;
+  if (isAnySubscriptionActive) isAuthorized = true;
   // User is authorized if user has admin role
   if (user?.attributes["custom:role"] == "admin") isAuthorized = true;
+
+  if (getCustomerSubscriptionsQuery.isLoading || isUserLoading) return;
 
   // Display forbidden dialog box if user is not authorized
   if (!isAuthorized)
