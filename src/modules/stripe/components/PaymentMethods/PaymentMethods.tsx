@@ -103,7 +103,7 @@ const CardMethodSubListItem = ({
       <ListItemText
         primary={<Typography variant="subtitle2">{label}</Typography>}
         sx={{
-          minWidth: { xs: "fit-content", sm: 200, md: 250 },
+          minWidth: { xs: 150, sm: 250, md: 250 },
         }}
       />
       {value}
@@ -120,6 +120,10 @@ const CardMethodActiveButton = ({
   method,
   visible,
 }: CardMethodActiveButtonOptions) => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
+  if (isMediumScreenSize) visible = true;
+
   // API
   const { data: response, refetch } = useQuery({
     queryKey: ["customer", "me"],
@@ -209,22 +213,22 @@ const CardMethod = ({ method }: CardMethodOptions) => {
           </Stack>
         }
       >
-        <ListItemIcon>
-          <CardIcon brand={method.card.brand} width={40} />
-        </ListItemIcon>
-        {/* TODO */}
         {!isMediumScreenSize && (
-          <ListItemText
-            primary={
-              <Typography fontWeight={600}>•••• {method.card.last4}</Typography>
-            }
-            secondary={
-              <Typography variant="subtitle2">
-                Expires {method.card.expires}
-              </Typography>
-            }
-          />
+          <ListItemIcon>
+            <CardIcon brand={method.card.brand} width={40} />
+          </ListItemIcon>
         )}
+        {/* TODO */}
+        <ListItemText
+          primary={
+            <Typography fontWeight={600}>•••• {method.card.last4}</Typography>
+          }
+          secondary={
+            <Typography variant="subtitle2">
+              Expires {method.card.expires}
+            </Typography>
+          }
+        />
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding sx={{ pb: 2 }}>
@@ -261,13 +265,19 @@ const CardMethod = ({ method }: CardMethodOptions) => {
 };
 
 export const PaymentMethods = () => {
+  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
+
   const { data: response, isLoading } = useQuery({
     queryKey: ["paymentMethods"],
     queryFn: () => getPaymentMethods(),
   });
 
   return (
-    <List dense disablePadding sx={{ position: "relative" }}>
+    <List
+      dense={!isMediumScreenSize}
+      disablePadding
+      sx={{ position: "relative" }}
+    >
       <LoadingWrapper isLoading={isLoading}>
         <Fade in={!isLoading} timeout={500}>
           <div>
@@ -278,7 +288,9 @@ export const PaymentMethods = () => {
                     <React.Fragment key={method.id}>
                       <CardMethod method={method} />
                       {index < response.data.length - 1 && ( // only display divider if not last item
-                        <Divider variant="inset" />
+                        <Divider
+                          variant={isMediumScreenSize ? "fullWidth" : "inset"}
+                        />
                       )}
                     </React.Fragment>
                   );
