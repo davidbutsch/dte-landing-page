@@ -1,5 +1,7 @@
+import { Price } from "@/modules/products";
+
 export type SubscriptionItem = {
-  price: string;
+  price: Price;
   quantity: number;
   discounts?: {
     // id of promotion code object
