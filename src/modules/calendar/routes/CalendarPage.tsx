@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/modules/auth";
-import { getCustomerSubscriptions } from "@/modules/stripe";
+import { getCustomerSubscriptions, getStripeCustomer } from "@/modules/stripe";
 import { palette } from "@/theme/palette";
 import {
   Button,
@@ -17,6 +17,12 @@ import { useNavigate } from "react-router-dom";
 
 export const CalendarPage = () => {
   const { user, isUserLoading } = useAuthStore();
+
+  const getCustomerQuery = useQuery({
+    queryKey: ["customer", "me"],
+    queryFn: getStripeCustomer,
+  });
+  const customer = getCustomerQuery.data?.data;
 
   const getCustomerSubscriptionsQuery = useQuery({
     queryKey: ["subscriptions"],
@@ -38,6 +44,8 @@ export const CalendarPage = () => {
   if (isAnySubscriptionActive) isAuthorized = true;
   // User is authorized if user has admin role
   if (user?.attributes["custom:role"] == "admin") isAuthorized = true;
+  // User is authorized if customer metadata includes subscribed == 'yes'
+  if (customer?.metadata?.subscribed == "yes") isAuthorized = true;
 
   if (getCustomerSubscriptionsQuery.isLoading || isUserLoading) return;
 
