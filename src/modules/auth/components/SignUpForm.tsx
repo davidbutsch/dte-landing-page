@@ -362,7 +362,7 @@ export const SignUpForm = () => {
         <>
           <FormControl>
             <FormLabel htmlFor="code" required>
-              Confirmation Code
+              Email Confirmation Code
             </FormLabel>
             <TextField
               error={!!errors.code}
