@@ -1,8 +1,12 @@
-import { USER_UNAUTHENTICATED_ERROR } from "@/common";
+import { USER_NOT_FOUND_ERROR, USER_UNAUTHENTICATED_ERROR } from "@/common";
 import { openErrorDialog } from "@/components";
 import { User } from "@/modules/auth/types";
 import { Customer, getStripeCustomer } from "@/modules/stripe";
-import { fetchUserAttributes, getCurrentUser } from "@aws-amplify/auth";
+import {
+  fetchUserAttributes,
+  getCurrentUser,
+  signOut,
+} from "@aws-amplify/auth";
 import { create } from "zustand";
 
 type AuthStoreState = {
@@ -53,6 +57,9 @@ export const storeUser = async (): Promise<void> => {
       switch (error.name) {
         // Ignore unauthenticated user errors
         case USER_UNAUTHENTICATED_ERROR:
+          break;
+        case USER_NOT_FOUND_ERROR:
+          signOut();
           break;
 
         // If unrecognized error, display error dialog
