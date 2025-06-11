@@ -8,7 +8,7 @@ export function promotionCodeToText(promotion: Promotion) {
   let text = "";
 
   if (coupon.percentOff) text += `${coupon.percentOff}% off`;
-  else if (coupon.amountOff) text += `$${coupon.amountOff} off`;
+  else if (coupon.amountOff) text += `$${coupon.amountOff / 100} off`;
 
   if (coupon.duration == "forever") text += ` forever`;
   else if (coupon.duration == "repeating")
