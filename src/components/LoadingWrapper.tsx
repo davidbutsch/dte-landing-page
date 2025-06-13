@@ -35,7 +35,9 @@ export const LoadingWrapper = ({
           <CircularProgress sx={{ width: 100 }} />
         </Box>
       </Fade>
-      {children}
+      <Fade in={!isLoading}>
+        <div>{children}</div>
+      </Fade>
     </Box>
   );
 };
