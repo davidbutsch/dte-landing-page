@@ -13,7 +13,6 @@ import {
   Button,
   Collapse,
   Divider,
-  Fade,
   Icon,
   IconButton,
   List,
@@ -279,26 +278,16 @@ export const PaymentMethods = () => {
       sx={{ position: "relative" }}
     >
       <LoadingWrapper isLoading={isLoading}>
-        <Fade in={!isLoading} timeout={500}>
-          <div>
-            <Collapse in={!isLoading} timeout={500}>
-              <div>
-                {response?.data.map((method, index) => {
-                  return (
-                    <React.Fragment key={method.id}>
-                      <CardMethod method={method} />
-                      {index < response.data.length - 1 && ( // only display divider if not last item
-                        <Divider
-                          variant={isMediumScreenSize ? "fullWidth" : "inset"}
-                        />
-                      )}
-                    </React.Fragment>
-                  );
-                })}
-              </div>
-            </Collapse>
-          </div>
-        </Fade>
+        {response?.data.map((method, index) => {
+          return (
+            <React.Fragment key={method.id}>
+              <CardMethod method={method} />
+              {index < response.data.length - 1 && ( // only display divider if not last item
+                <Divider variant={isMediumScreenSize ? "fullWidth" : "inset"} />
+              )}
+            </React.Fragment>
+          );
+        })}
       </LoadingWrapper>
     </List>
   );
