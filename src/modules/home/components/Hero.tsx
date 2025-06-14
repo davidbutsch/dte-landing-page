@@ -1,4 +1,3 @@
-import { theme } from "@/theme";
 import {
   Box,
   Button,
@@ -7,26 +6,25 @@ import {
   Icon,
   Stack,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const Hero = () => {
-  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <Container>
       <Grid2
         container
-        spacing={isMediumScreenSize ? 5 : 12}
-        alignItems={isMediumScreenSize ? "baseline" : "center"}
-        direction={isMediumScreenSize ? "column" : "row"}
+        spacing={{ xs: 5 }}
+        alignItems={{ xs: "baseline", md: "center" }}
+        direction={{ xs: "column", md: "row" }}
       >
-        <Grid2 size={{ xs: 7 }}>
+        <Grid2 size={{ xs: 7 }} pl={{ xs: 2, sm: 0 }}>
           <Typography
-            variant={isMediumScreenSize ? "h2" : "h1"}
-            fontFamily="Lobster"
+            fontFamily="Lobster !important"
+            typography={{ xs: "h1", md: "h1" }}
             sx={{
+              fontSize: { xs: "15vw", sm: "inherit" },
+
               span: {
                 overflow: "visible",
                 position: "relative",
@@ -37,7 +35,7 @@ export const Hero = () => {
                   top: 0,
                   left: 0,
                   right: 0,
-                  bottom: "-4rem",
+                  bottom: { xs: "-10vw", sm: "-4rem" },
 
                   // Position the line behind the text so that
                   // it is still easily readable
@@ -54,7 +52,7 @@ export const Hero = () => {
           >
             Youth Basketball <span>Reimagined</span>
           </Typography>
-          <Stack mt={isMediumScreenSize ? 14 : 16} direction="row" gap={2}>
+          <Stack mt={{ xs: "20vw", md: 14 }} direction="row" gap={2}>
             <Link to={"/products"}>
               <Button
                 size="large"
@@ -71,17 +69,12 @@ export const Hero = () => {
             </Link>
           </Stack>
         </Grid2>
-        <Grid2
-          size={{ xs: isMediumScreenSize ? 12 : 5 }}
-          display="flex"
-          justifyContent="center"
-        >
+        <Grid2 size={{ xs: 12, md: 5 }} display="flex" justifyContent="center">
           <Box
             component={"img"}
             src="/jersey.png"
             sx={{
-              transform: "rotate(15deg)",
-              width: isMediumScreenSize ? "60vw" : "100%",
+              width: { xs: "60vw", md: "100%" },
             }}
           />
         </Grid2>
