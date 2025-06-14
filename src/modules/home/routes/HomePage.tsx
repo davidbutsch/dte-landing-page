@@ -1,16 +1,9 @@
 import { Coaches, GalleryPreview, Hero } from "@/modules/home";
-import { theme } from "@/theme";
-import { Stack, useMediaQuery } from "@mui/material";
+import { Stack } from "@mui/material";
 
 export const HomePage = () => {
-  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
-    <Stack
-      pt={isMediumScreenSize ? 5 : 10}
-      direction="column"
-      gap={isMediumScreenSize ? 10 : 20}
-    >
+    <Stack pt={{ xs: 5, md: 10 }} direction="column" gap={{ xs: 10, md: 20 }}>
       <Hero />
       <GalleryPreview />
       <Coaches />

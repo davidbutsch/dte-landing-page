@@ -1,24 +1,21 @@
-import { theme } from "@/theme";
-import { Stack, Typography, useMediaQuery } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 export const CoachesTypography = () => {
-  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <Stack
-      justifyContent={isMediumScreenSize ? "normal" : "space-between"}
-      height={isMediumScreenSize ? "inherit" : "400px"}
+      justifyContent={{ xs: "normal", md: "space-between" }}
+      height={{ xs: "inherit", md: "400px" }}
     >
       <Typography
-        variant={isMediumScreenSize ? "h2" : "h1"}
-        fontFamily="Lobster"
+        fontFamily="Lobster !important"
+        typography={{ xs: "h2", md: "h1" }}
       >
         Meet your Coaches
       </Typography>
       <Typography
-        mt={isMediumScreenSize ? 2 : 0}
+        mt={{ xs: 2, md: 0 }}
         variant="subtitle2"
-        maxWidth={isMediumScreenSize ? "none" : "50%"}
+        maxWidth={{ xs: "none", md: "50%" }}
       >
         For Athletes. By Athletes.
       </Typography>

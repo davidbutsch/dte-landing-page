@@ -1,24 +1,21 @@
-import { theme } from "@/theme";
-import { Container, useMediaQuery } from "@mui/material";
+import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { CoachesTypography } from "./CoachesTypography";
 import { CoachPortraits } from "./CoachPortraits";
 
 export const Coaches = () => {
-  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <Container>
       <Grid
         container
         spacing={4}
-        height={isMediumScreenSize ? "inherit" : "400px"}
-        direction={isMediumScreenSize ? "column" : "row"}
+        height={{ xs: "inherit", md: "400px" }}
+        direction={{ xs: "column", md: "row" }}
       >
-        <Grid size={isMediumScreenSize ? 12 : 5}>
+        <Grid size={{ xs: 12, md: 5 }}>
           <CoachesTypography />
         </Grid>
-        <Grid size={isMediumScreenSize ? 12 : 7}>
+        <Grid size={{ xs: 12, md: 7 }}>
           <CoachPortraits />
         </Grid>
       </Grid>

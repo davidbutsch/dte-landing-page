@@ -1,23 +1,18 @@
-import { theme } from "@/theme";
-import { Box, styled, Typography, useMediaQuery } from "@mui/material";
-
-const TypographyContainer = styled(Box)({});
+import { Box, Typography } from "@mui/material";
 
 export const GalleryPreviewTypography = () => {
-  const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
-    <TypographyContainer zIndex={1}>
+    <Box>
       <Typography
-        variant={isMediumScreenSize ? "h2" : "h1"}
         textAlign="right"
-        fontFamily="Lobster"
+        fontFamily="Lobster !important"
+        typography={{ xs: "h2", md: "h1" }}
       >
         Together
       </Typography>
       <Typography variant="subtitle1" fontWeight="bold" textAlign="right">
         We are Dream Team
       </Typography>
-    </TypographyContainer>
+    </Box>
   );
 };
