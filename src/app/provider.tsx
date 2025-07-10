@@ -1,4 +1,4 @@
-import { ErrorDialog, InfoDialog } from "@/components";
+import { ErrorDialog, InfoDialog, ScrollToTop } from "@/components";
 import { queryClient } from "@/libs";
 import { ThemeProvider } from "@/theme";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -27,6 +27,8 @@ export const AppProvider = ({ children }: AppProviderProps): JSX.Element => {
           <ReactQueryDevtools />
           <ThemeProvider>
             {/* Reusable Components */}
+
+            <ScrollToTop />
             <Toaster />
             <ErrorDialog />
             <InfoDialog />
