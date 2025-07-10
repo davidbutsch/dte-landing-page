@@ -5,7 +5,6 @@ import {
 import { theme } from "@/theme";
 import {
   Button,
-  Container,
   ImageList,
   ImageListItem,
   Stack,
@@ -39,7 +38,7 @@ export const Images = () => {
     ].data.nextToken;
 
   return (
-    <Container>
+    <>
       <ImageList
         sx={{ width: "100%", height: "100%", overflow: "visible", zIndex: -1 }}
         gap={isMediumScreenSize ? 20 : 30}
@@ -71,6 +70,6 @@ export const Images = () => {
           Load More
         </Button>
       </Stack>
-    </Container>
+    </>
   );
 };

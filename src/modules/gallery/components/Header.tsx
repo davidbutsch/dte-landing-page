@@ -1,5 +1,5 @@
 import { SUPPORT_EMAIL_ADDRESS } from "@/common";
-import { Stack, Typography } from "@mui/material";
+import { Link, Stack, Typography } from "@mui/material";
 
 export const Header = () => {
   return (
@@ -8,8 +8,11 @@ export const Header = () => {
         The Gallery
       </Typography>
       <Typography variant="subtitle1">
-        Send your own pictures to <strong>{SUPPORT_EMAIL_ADDRESS}</strong> and
-        we'll feature your highlights in the gallery!
+        Send your own pictures to{" "}
+        <Link href={`mailto:${SUPPORT_EMAIL_ADDRESS}`}>
+          {SUPPORT_EMAIL_ADDRESS}
+        </Link>{" "}
+        and we'll feature your highlights in the gallery!
       </Typography>
     </Stack>
   );
