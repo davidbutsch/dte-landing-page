@@ -182,7 +182,7 @@ const Banner = () => {
         variant="subtitle2"
         textAlign="center"
       >
-        UNDER DEVELOPMENT
+        Check out the new trailer! ⛹️
       </Typography>
     </Box>
   );
@@ -195,6 +195,7 @@ export const NavBar = () => {
     <AppBar
       position="sticky"
       color="inherit"
+      elevation={0}
       variant="outlined"
       sx={{
         borderBottom: "1px solid #000",
