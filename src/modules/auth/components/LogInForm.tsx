@@ -11,8 +11,10 @@ import { INCORRECT_CREDENTIALS_ERROR } from "@/common";
 import { storeUser } from "@/modules/auth/hooks";
 import { CredentialsSchema } from "@/modules/auth/schemas";
 import { signIn } from "@aws-amplify/auth";
+import { Link as MuiLink } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 import { openErrorDialog } from "@/components";
 
@@ -169,6 +171,15 @@ export const LogInForm = () => {
             fullWidth
             variant="outlined"
           />
+          <MuiLink
+            variant="body2"
+            color="textPrimary"
+            component={RouterLink}
+            to={"/reset-password"}
+            mt={1}
+          >
+            Forgot password?
+          </MuiLink>
         </FormControl>
         <Button
           type="submit"
