@@ -6,4 +6,4 @@ export const INVALID_VERIFICATION_CODE_ERROR = "CodeMismatchException";
 export const USER_UNAUTHENTICATED_ERROR = "UserUnAuthenticatedException";
 export const USER_NOT_FOUND_ERROR = "UserNotFoundException";
 
-export const SUPPORT_EMAIL_ADDRESS = "dreamteamsportsgroup@gmail.com";
+export const SUPPORT_EMAIL_ADDRESS = "contact@dtefrisco.com";

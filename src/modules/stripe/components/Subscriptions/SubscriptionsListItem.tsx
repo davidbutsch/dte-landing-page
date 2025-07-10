@@ -90,6 +90,8 @@ export type SubscriptionsListItemProps = {
 export const SubscriptionsListItem = (props: SubscriptionsListItemProps) => {
   const { subscription } = props;
   const price = subscription.items[0].price;
+  if (typeof price == "string") return;
+
   const productId = price.productId;
 
   if (!productId) return;

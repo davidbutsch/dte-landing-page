@@ -17,7 +17,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const pages = [
@@ -178,60 +178,19 @@ const Banner = () => {
         color: "#FFFFFF",
       }}
     >
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-        gap={isMediumScreenSize ? 1 : 2}
+      <Typography
+        fontSize={isMediumScreenSize ? 12 : 14}
+        variant="subtitle2"
+        textAlign="center"
       >
-        <Typography
-          fontSize={isMediumScreenSize ? 12 : 14}
-          variant="subtitle2"
-          textAlign="center"
-        >
-          5% Off for All Customers — Ends June 6th
-        </Typography>
-        <Link
-          to={
-            "/checkout/?productId=prod_SQDmPWPCtqjLMr&priceId=price_1RVNKqJKrmk8pDYtpts5Sp2Y&step=0&coupon=%7B%22id%22%3A%22promo_1RVcJaJKrmk8pDYtyqwqJckr%22%2C%22code%22%3A%22LOYALTY5%22%2C%22discount%22%3A%225%25+off%22%7D"
-          }
-        >
-          <Button
-            endIcon={
-              <Icon className="material-symbols-outlined" color="primary">
-                rocket_launch
-              </Icon>
-            }
-          >
-            Claim Now
-          </Button>
-        </Link>
-      </Stack>
+        UNDER DEVELOPMENT
+      </Typography>
     </Card>
   );
 };
 
 export const NavBar = () => {
   const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
-
-  const [offerExpired, setOfferExpired] = useState(false);
-
-  useEffect(() => {
-    const checkTime = () => {
-      const now = new Date();
-      const targetTime = new Date("2025-06-06T10:00:00"); // Example target time
-
-      if (now.getTime() > targetTime.getTime()) {
-        setOfferExpired(true);
-      }
-    };
-
-    checkTime(); // Check immediately
-
-    const intervalId = setInterval(checkTime, 60000); // Check every minute
-
-    return () => clearInterval(intervalId); // Cleanup interval on unmount
-  }, []);
 
   return (
     <AppBar
@@ -241,7 +200,7 @@ export const NavBar = () => {
         borderBottom: "1px solid #000",
       }}
     >
-      {!offerExpired && <Banner />}
+      <Banner />
 
       <Container>
         <Toolbar

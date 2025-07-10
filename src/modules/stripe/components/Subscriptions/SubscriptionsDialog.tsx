@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { SubscriptionsList } from "./SubscriptionsList";
 
-export type BillingDetailsDialogOptions = {
+export type SubscriptionsDialogOptions = {
   open: ModalProps["open"];
   onClose: ModalProps["onClose"];
 };
@@ -28,7 +28,7 @@ export type BillingDetailsDialogOptions = {
 export const SubscriptionsDialog = ({
   open,
   onClose,
-}: BillingDetailsDialogOptions) => {
+}: SubscriptionsDialogOptions) => {
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle>Subscriptions</DialogTitle>
