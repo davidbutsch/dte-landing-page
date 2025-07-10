@@ -2,11 +2,7 @@ import { Button, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const links = [
-  { name: "Youtube", to: "https://www.youtube.com/@itscoachDK/shorts" },
-  {
-    name: "Developer Support",
-    to: "mailto:dcbutsch@gmail.com?subject=Developer Support",
-  },
+  { name: "YouTube", to: "https://www.youtube.com/@itscoachDK/shorts" },
   {
     name: "Contact Us",
     to: "mailto:dreamteamsportsgroup@gmail.com?subject=Contact Us",
