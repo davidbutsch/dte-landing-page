@@ -1,4 +1,3 @@
-import { palette } from "@/theme/palette";
 import { Container } from "@mui/material";
 
 export const CalendarPage = () => {
@@ -10,9 +9,8 @@ export const CalendarPage = () => {
         height="100%"
         style={{
           border: "none",
-          boxShadow: `
-          -4px -4px 0px 4px ${palette.secondary.main},
-          4px 4px 0px 4px ${palette.primary.main}`,
+          outline: "1px solid #000",
+          boxShadow: "2px 2px 0px 1px #000",
         }}
       ></iframe>
     </Container>
