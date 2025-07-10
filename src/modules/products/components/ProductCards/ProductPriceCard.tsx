@@ -19,7 +19,6 @@ export const ProductPriceCard = (props: ProductPriceCardProps) => {
 
   return (
     <Card
-      variant="outlined"
       sx={{
         display: "flex",
         flexDirection: "column",

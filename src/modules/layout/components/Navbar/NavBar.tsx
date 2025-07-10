@@ -7,7 +7,6 @@ import {
   AppBar,
   Box,
   Button,
-  Card,
   Container,
   Drawer,
   Icon,
@@ -170,7 +169,7 @@ const Banner = () => {
   const isMediumScreenSize = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Card
+    <Box
       sx={{
         padding: 1,
 
@@ -185,7 +184,7 @@ const Banner = () => {
       >
         UNDER DEVELOPMENT
       </Typography>
-    </Card>
+    </Box>
   );
 };
 
@@ -196,6 +195,7 @@ export const NavBar = () => {
     <AppBar
       position="sticky"
       color="inherit"
+      variant="outlined"
       sx={{
         borderBottom: "1px solid #000",
       }}

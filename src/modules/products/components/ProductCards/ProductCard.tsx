@@ -19,7 +19,7 @@ export const ProductCard = (props: ProductProps) => {
 
   return (
     <Stack direction={{ xs: "column", md: "row" }} gap={2}>
-      <Card variant="outlined">
+      <Card>
         <CardContent>
           <Typography fontWeight="bold" variant="h4" gutterBottom>
             {product.name}
