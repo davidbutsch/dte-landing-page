@@ -13,8 +13,8 @@ export const HomePage = () => {
       <Hero />
       <Trailer />
       <GalleryPreview />
-      <YouTubePreview />
       <Coaches />
+      <YouTubePreview />
     </Stack>
   );
 };

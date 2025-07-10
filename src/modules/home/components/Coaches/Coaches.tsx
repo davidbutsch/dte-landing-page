@@ -11,6 +11,7 @@ export const Coaches = () => {
         spacing={4}
         height={{ xs: "inherit", md: "400px" }}
         direction={{ xs: "column", md: "row" }}
+        mb={{ sm: "70px" }}
       >
         <Grid size={{ xs: 12, md: 5 }}>
           <CoachesTypography />
