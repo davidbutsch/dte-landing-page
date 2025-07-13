@@ -1,6 +1,6 @@
 import { formatAsCurrency } from "@/common";
 import {
-  formatTimeRange,
+  formatSubscriptionRange,
   getCouponSavings,
   getPromotionWithCode,
   QueryCoupon,
@@ -85,10 +85,7 @@ export const OrderSummary = () => {
   const promotion = getPromotionWithCodeQuery.data?.data;
 
   const timeRange = useMemo(
-    () =>
-      selectedPrice && selectedPrice.recurring
-        ? formatTimeRange(selectedPrice.recurring)
-        : null,
+    () => (selectedPrice ? formatSubscriptionRange(selectedPrice) : null),
     [selectedPrice]
   );
 
